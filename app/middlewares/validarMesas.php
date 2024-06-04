@@ -1,9 +1,12 @@
 <?php
+use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
+use Psr\Http\Message\ServerRequestInterface as Request;
+
 require_once './models/Mesa.php';
 
 class ValidarMesas{
 
-    public static function ValidarMesa($request, $handler){
+    public static function ValidarMesa(Request $request,  RequestHandler $handler){
         $parametros = $request->getParsedBody();
         if(isset($parametros['id'])){
             $mesa = Mesa::obtenerMesa($parametros['id']);

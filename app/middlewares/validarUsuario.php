@@ -1,8 +1,10 @@
 <?php
+use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 class ValidarUsuario{
 
-    public static function ValidarCampos($request, $handler){
+    public static function ValidarCampos(Request $request,  RequestHandler $handler){
         $parametros = $request->getParsedBody();
         if(isset($parametros['nombre']) || isset($parametros['clave']) || isset($parametros['rol']) || isset($parametros['estado'])){
             ValidarUsuario::ValidarRol($parametros["rol"]);
@@ -11,7 +13,7 @@ class ValidarUsuario{
         throw new Exception('Campos Invalidos');
     }
 
-    public static function ValidarCampoIdUsuario($request, $handler){
+    public static function ValidarCampoIdUsuario(Request $request,  RequestHandler $handler){
         $parametros = $request->getQueryParams();
         if(isset($parametros['idUsuario'])){
             return $handler->handle($request);
