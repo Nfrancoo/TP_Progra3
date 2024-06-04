@@ -1,0 +1,42 @@
+{
+	"info": {
+		"_postman_id": "24e8ca97-acae-4445-9a5a-74deea0ea922",
+		"name": "Comanda",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34176614"
+	},
+	"item": [
+		{
+			"name": "index",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "codigo",
+							"value": "jw1k0F5wWA7RZN5R",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:666/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,5 +1,6 @@
 <?php
 require_once './models/Pedido.php';
+//no use actualmente
 class ValidarPedidos{
     public static function ValidarMesaExistente($request, $handler){
         $parametros = $request->getParsedBody();
