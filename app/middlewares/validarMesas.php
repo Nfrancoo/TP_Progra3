@@ -14,29 +14,6 @@ class ValidarMesas{
         throw new Exception('Mesa no existente');
     }
 
-    public static function ValidarMesaCodigoMesa($request, $handler){
-        $parametros = $request->getParsedBody();
-        if(isset($parametros['codigoMesa'])){
-            $mesa = Mesa::obtenerMesaPorCodigo($parametros['codigoMesa']);
-            if($mesa){
-                return $handler->handle($request);
-            }
-        }
-        throw new Exception('Mesa no existente');
-    }
-
-    public static function ValidarCampos($request, $handler){
-        $parametros = $request->getParsedBody();
-        if(isset($parametros['codigo'])){
-            $codigo = $parametros['codigo'];
-            $mesa = Mesa::obtenerMesa($codigo);
-            if(self::ValidarMesaExistente($mesa)){
-                return $handler->handle($request);
-            }
-        }
-        throw new Exception('Campos Invalidos');
-    }
-
 
     public static function ValidarMesaExistente($mesa){
         if($mesa){
