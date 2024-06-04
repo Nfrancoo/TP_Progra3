@@ -28,7 +28,7 @@ class PedidoController extends Pedido implements IApiUsable{
         $producto = Productos::obtenerProducto($parametros['idProducto']);
         $pedido = new Pedido();
         $pedido->codigo = self::generarCodigoPedido();
-        // $pedido->idMesa = 
+        $pedido->idMesa = $parametros["idMesa"];
         $pedido->idProducto = $parametros['idProducto'];
         $pedido->sector = self::ChequearSector($producto->tipo);
         var_dump($producto->tipo);
