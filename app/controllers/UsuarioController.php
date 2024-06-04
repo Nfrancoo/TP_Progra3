@@ -8,12 +8,12 @@ class UsuarioController extends Usuario implements IApiUsable
     {
         $parametros = $request->getParsedBody();
 
-        $usuario = $parametros['usuario'];
+        $nombre = $parametros['nombre'];
+        $rol = $parametros["rol"];
         $clave = $parametros['clave'];
-
-        // Creamos el usuario
         $usr = new Usuario();
-        $usr->usuario = $usuario;
+        $usr->nombre = $nombre;
+        $usr->rol = $rol;
         $usr->clave = $clave;
         $usr->crearUsuario();
 
@@ -26,14 +26,12 @@ class UsuarioController extends Usuario implements IApiUsable
 
     public function TraerUno($request, $response, $args)
     {
-        // Buscamos usuario por nombre
-        $usr = $args['usuario'];
-        $usuario = Usuario::obtenerUsuario($usr);
+        $id = $args['id'];
+        $usuario = Usuario::obtenerUsuario($id);
         $payload = json_encode($usuario);
 
         $response->getBody()->write($payload);
-        return $response
-          ->withHeader('Content-Type', 'application/json');
+        return $response->withHeader('Content-Type', 'application/json');
     }
 
     public function TraerTodos($request, $response, $args)
@@ -49,25 +47,36 @@ class UsuarioController extends Usuario implements IApiUsable
     public function ModificarUno($request, $response, $args)
     {
         $parametros = $request->getParsedBody();
+        $usuario = Usuario::obtenerUsuario($parametros["id"]);
+        if($usuario){
+          $usuario->nombre = $parametros["nombre"];
+          $usuario->rol = $parametros["rol"];
+          $usuario->clave = $parametros["clave"];
+          $usuario->estado = $parametros["estado"];
 
-        $nombre = $parametros['nombre'];
-        Usuario::modificarUsuario($nombre);
-
+          // $nombre = $parametros['nombre'];
+        Usuario::modificarUsuario($usuario);
         $payload = json_encode(array("mensaje" => "Usuario modificado con exito"));
+        }else {
+          // Manejar el caso en que no se encuentre ningún usuario con el ID proporcionado
+          $payload = json_encode(array("mensaje" => "Usuario no encontrado"));
+      }
 
         $response->getBody()->write($payload);
-        return $response
-          ->withHeader('Content-Type', 'application/json');
+        return $response->withHeader('Content-Type', 'application/json');
     }
 
     public function BorrarUno($request, $response, $args)
     {
         $parametros = $request->getParsedBody();
+        Usuario::borrarUsuario($parametros["id"]);
 
-        $usuarioId = $parametros['usuarioId'];
-        Usuario::borrarUsuario($usuarioId);
-
-        $payload = json_encode(array("mensaje" => "Usuario borrado con exito"));
+        if($parametros["id"]){
+          $payload = json_encode(array("mensaje" => "Usuario borrado con exito"));
+        } else{
+          $payload = json_encode(array("mensaje" => "No puedo borrar el usuario, no me pasas un id correcto"));
+        }
+        
 
         $response->getBody()->write($payload);
         return $response
