@@ -42,10 +42,10 @@ class PedidoController extends Pedido implements IApiUsable{
     }
 
     public static function ChequearSector($tipo){
-        if($tipo === 'comida'|| $tipo === "comida"){
+        if($tipo === 'comida'|| $tipo === "Comida"){
             return 'cocina';
         }
-        else if($tipo === 'bebidas' || $tipo === 'cerveza'){
+        else if($tipo === 'bebidas' || $tipo === 'Bebidas'){
             return 'barra de bebidas';
         }
         else if($tipo === 'cerveza'|| $tipo === 'Cerveza'){
