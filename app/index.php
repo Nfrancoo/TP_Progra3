@@ -35,11 +35,7 @@ $app->addErrorMiddleware(true, true, true);
 // Add parse body
 $app->addBodyParsingMiddleware();
 
-
-$app->group('/sesion', function (RouteCollectorProxy $group) {
-  $group->post('[/]', \Logger::class.'::Loguear');
-  $group->get('[/]', \Logger::class.'::Salir');
-});
+// php -S localhost:666 -t app
 
 // Routes
 $app->group('/usuarios', function (RouteCollectorProxy $group) {
