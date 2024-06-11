@@ -59,6 +59,16 @@ class Usuario
         $consulta->execute();
     }
 
+    public function BajarUsuario($usuario)
+    {
+        $objAccesoDato = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDato->prepararConsulta("UPDATE usuarios SET estado = :estado, fechaBaja = :fechaBaja WHERE id = :id");
+        $consulta->bindValue(':id', $usuario->id, PDO::PARAM_INT);
+        $consulta->bindValue(':estado', $usuario->estado, PDO::PARAM_STR);
+        $consulta->bindValue(':fechaBaja', $usuario->fechaBaja, PDO::PARAM_STR);
+        $consulta->execute();
+    }
+
     public static function borrarUsuario($id)
     {
         $objAccesoDato = AccesoDatos::obtenerInstancia();

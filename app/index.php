@@ -45,6 +45,7 @@ $app->group('/sesion', function (RouteCollectorProxy $group) {
 $app->group('/usuarios', function (RouteCollectorProxy $group) {
     $group->get('[/]', \UsuarioController::class . ':TraerTodos');
     $group->get('/{id}', \UsuarioController::class . ':TraerUno');
+    $group->get('/DarBaja/{id}', \UsuarioController::class . ':BajarUno');
     $group->post('[/]', \UsuarioController::class . ':CargarUno')->add(\ValidarUsuario::class.':ValidarCampos');
     $group->put('[/]', \UsuarioController::class . ':ModificarUno')->add(\ValidarUsuario::class.':ValidarCampos');
     $group->delete('[/]', \UsuarioController::class . ':BorrarUno');

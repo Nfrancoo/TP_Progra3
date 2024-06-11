@@ -15,6 +15,7 @@ class UsuarioController extends Usuario implements IApiUsable
         $usr->nombre = $nombre;
         $usr->rol = $rol;
         $usr->clave = $clave;
+        $usr->fechaInicio = date("Y-m-d");
         $usr->crearUsuario();
 
         $payload = json_encode(array("mensaje" => "Usuario creado con exito"));
@@ -43,6 +44,26 @@ class UsuarioController extends Usuario implements IApiUsable
         return $response
           ->withHeader('Content-Type', 'application/json');
     }
+
+    public function BajarUno($request, $response, $args)
+    {
+        $id = $args['id'];
+        $usuario = Usuario::obtenerUsuario($id);
+        var_dump($usuario);
+        if($usuario){
+          $usuario->estado = "inactivo";
+          $usuario->fechaBaja = date("Y-m-d");
+          Usuario::bajarUsuario($usuario);
+         $payload = json_encode(array("mensaje" => "Usuario bajado con exito"));
+        }else {
+          
+          $payload = json_encode(array("mensaje" => "Usuario no encontrado"));
+      }
+
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
     
     public function ModificarUno($request, $response, $args)
     {
@@ -58,7 +79,7 @@ class UsuarioController extends Usuario implements IApiUsable
         Usuario::modificarUsuario($usuario);
         $payload = json_encode(array("mensaje" => "Usuario modificado con exito"));
         }else {
-          // Manejar el caso en que no se encuentre ningún usuario con el ID proporcionado
+          
           $payload = json_encode(array("mensaje" => "Usuario no encontrado"));
       }
 
