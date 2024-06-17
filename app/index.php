@@ -81,4 +81,19 @@ $app->group('/cobrar', function (RouteCollectorProxy $group) {
   $group->post('[/]', \MesaController::class.':CerrarMesa');
 });
 
+$app->post('/comentar', \ComentarioController::class.':CargarUno')
+->add(\ValidarMesas::class.':ValidarMesaCerrada')
+->add(\ValidarComentarios::class.':ValidarCodigoMesa')
+->add(\ValidarMesas::class.':ValidarMesaCodigoMesa')
+->add(\ValidarComentarios::class.':ValidarCamposComentario');
+
+
+$app->get('/mejores-comentarios', \ComentarioController::class.':TraerMejores')
+->add(\ValidarUsuario::class.':ValidarPermisosDeRol');
+
+$app->group('/archivos', function (RouteCollectorProxy $group) {
+    $group->post('/cargarProductos', \ProductoController::class.'::CargarCSV');
+    $group->get('/descargarPedidos', \PedidoController::class.'::DescargarCSV');
+});
+
 $app->run();

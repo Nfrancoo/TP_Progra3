@@ -58,7 +58,7 @@ class PedidoController extends Pedido implements IApiUsable{
 
     public static function generarCodigoPedido(){
         $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $longitud = 16;
+        $longitud = 5;
         $codigo = '';
         for ($i = 0; $i < $longitud; $i++) {
             $codigo .= $caracteres[rand(0, strlen($caracteres) - 1)];
@@ -124,6 +124,23 @@ class PedidoController extends Pedido implements IApiUsable{
         $payload = json_encode(array("mensaje" => 'Que lo disfrutes'));
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public static function DescargarCSV($request, $response, $args) {
+        $pedidos = Pedido::obtenerTodosFinalizados('completado');
+        $fecha = new DateTime(date('Y-m-d'));
+        $path = date_format($fecha, 'Y-m-d').'pedidos_completados.csv';
+        $archivo = fopen($path, 'w');
+        $encabezado = array('id','codigo','idMesa','idProducto','nombreCliente','sector','estado','precio','cantidad');
+        fputcsv($archivo, $encabezado);
+        foreach($pedidos as $pedido){
+            $linea = array($pedido->id, $pedido->codigo, $pedido->idMesa, $pedido->idProducto, $pedido->nombreCliente, $pedido->sector, $pedido->estado, $pedido->precio, $pedido->cantidad);
+            fputcsv($archivo, $linea);
+        }
+        $payload = json_encode(array("mensaje" => 'Archivo creado exitosamente'));
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+
     }
 
 

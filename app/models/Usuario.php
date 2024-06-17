@@ -47,6 +47,16 @@ class Usuario
         return $consulta->fetchObject('Usuario');
     }
 
+    public static function obtenerUsuarioPorNombre($nombre)
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, nombre, rol, clave, estado, fechaInicio, fechaBaja FROM usuarios WHERE nombre = :nombre");
+        $consulta->bindValue(':nombre', $nombre, PDO::PARAM_STR);
+        $consulta->execute();
+
+        return $consulta->fetchObject('Usuario');
+    }
+
     public function modificarUsuario($usuario)
     {
         $objAccesoDato = AccesoDatos::obtenerInstancia();

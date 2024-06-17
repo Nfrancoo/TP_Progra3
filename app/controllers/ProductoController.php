@@ -63,4 +63,27 @@ class ProductoController extends Productos implements IApiUsable{
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     }
+
+
+    public static function CargarCSV($request, $response, $args) {
+        $parametros = $request->getUploadedFiles();
+        $archivo = fopen($parametros['archivo']->getFilePath(), 'r');
+        $encabezado = fgetcsv($archivo); // Leer el encabezado y avanzar al siguiente registro
+        
+        while (($datos = fgetcsv($archivo)) !== false) {
+            $producto = new Productos();
+            $producto->id = $datos[0];
+            $producto->producto = $datos[1]; // Asignar el nombre del producto
+            $producto->tipo = $datos[2]; // Asignar el tipo del producto
+            $producto->precio = $datos[3];
+            $producto->tiempoPreparacion = $datos[4];
+            $producto->crearProducto();
+        }
+        
+        fclose($archivo);
+        $payload = json_encode(array("mensaje" => "Lista de productos cargada exitosamente"));
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+    
 }
