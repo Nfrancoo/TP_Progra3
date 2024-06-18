@@ -24,6 +24,7 @@ class PedidoController extends Pedido implements IApiUsable{
     
 
     public function CargarUno($request, $response, $args){
+        
         $parametros = $request->getParsedBody();
         $producto = Productos::obtenerProducto($parametros['idProducto']);
         $pedido = new Pedido();
@@ -31,11 +32,23 @@ class PedidoController extends Pedido implements IApiUsable{
         $pedido->idMesa = $parametros["idMesa"];
         $pedido->idProducto = $parametros['idProducto'];
         $pedido->sector = self::ChequearSector($producto->tipo);
-        var_dump($producto->tipo);
+        //var_dump($producto->tipo);
         $pedido->cantidad = $parametros['cantidad'];
         $pedido->nombreCliente = $parametros['nombreCliente'];
         $pedido->precio = $producto->precio * $parametros['cantidad'];
         $pedido->crearPedido();
+
+        $carpeta_archivo = 'C:\xampp\htdocs\TP_Progra3\app\imagen-mesa';
+        $uploadedFiles = $request->getUploadedFiles();
+        $uploadedFile = $uploadedFiles['archivo'];
+
+        if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
+            $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
+            $filename = "{$parametros['nombreCliente']}-{$pedido->codigo}-{$parametros['idMesa']}.{$extension}";
+
+            $uploadedFile->moveTo($carpeta_archivo . DIRECTORY_SEPARATOR . $filename);
+        }
+
         $payload = json_encode(array("mensaje" => "Pedido creado con exito"));
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
