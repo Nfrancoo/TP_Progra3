@@ -21,6 +21,7 @@ require_once './controllers/PedidoController.php';
 require_once './middlewares/validarPedidos.php';
 require_once './middlewares/validarMesas.php';
 require_once './controllers/MesaController.php';
+require_once './middlewares/JWS.php';
 
 // Load ENV
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
@@ -36,6 +37,12 @@ $app->addErrorMiddleware(true, true, true);
 $app->addBodyParsingMiddleware();
 
 // php -S localhost:666 -t app
+
+
+$app->group('/sesion', function (RouteCollectorProxy $group) {
+  $group->post('[/]', \Logger::class.'::LoguearUsuario');
+  $group->get('[/]', \Logger::class.'::Salir');
+});
 
 // Routes
 $app->group('/usuarios', function (RouteCollectorProxy $group) {
