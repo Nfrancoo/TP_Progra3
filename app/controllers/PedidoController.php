@@ -127,9 +127,10 @@ class PedidoController extends Pedido implements IApiUsable{
     }
 
     public static function DescargarCSV($request, $response, $args) {
+        $carpeta_archivo = 'C:\xampp\htdocs\TP_Progra3\app\descargas-csv\Pedidos/';
         $pedidos = Pedido::obtenerTodosFinalizados('completado');
         $fecha = new DateTime(date('Y-m-d'));
-        $path = date_format($fecha, 'Y-m-d').'pedidos_completados.csv';
+        $path = $carpeta_archivo. date_format($fecha, 'Y-m-d').'pedidos_completados.csv';
         $archivo = fopen($path, 'w');
         $encabezado = array('id','codigo','idMesa','idProducto','nombreCliente','sector','estado','precio','cantidad');
         fputcsv($archivo, $encabezado);
@@ -140,7 +141,31 @@ class PedidoController extends Pedido implements IApiUsable{
         $payload = json_encode(array("mensaje" => 'Archivo creado exitosamente'));
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
+    }
 
+    public static function CargarCSV($request, $response, $args) {
+        $parametros = $request->getUploadedFiles();
+        $archivo = fopen($parametros['archivo']->getFilePath(), 'r');
+        $encabezado = fgetcsv($archivo);
+        
+        while (($datos = fgetcsv($archivo)) !== false) {
+            $producto = new Pedido();
+            $producto->id = $datos[0];
+            $producto->codigo = $datos[1];
+            $producto->idMesa = $datos[2];
+            $producto->idProducto = $datos[3];
+            $producto->nombreCliente = $datos[4];
+            $producto->sector = $datos[5];
+            $producto->estado = $datos[6];
+            $producto->precio = $datos[7];
+            $producto->cantidad = $datos[8];
+            $producto->crearPedido();
+        }
+        
+        fclose($archivo);
+        $payload = json_encode(array("mensaje" => "Lista de pedidos cargada exitosamente"));
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
     }
 
 

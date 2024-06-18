@@ -19,7 +19,11 @@ class Usuario
         $consulta->bindValue(':nombre', $this->nombre, PDO::PARAM_STR);
         $consulta->bindValue(':rol', $this->rol, PDO::PARAM_STR);
         $consulta->bindValue(':clave', $claveHash);
+        if($this->estado == "inactivo"){
+            $consulta->bindValue(':estado', "inactivo", PDO::PARAM_STR);
+        }else{
         $consulta->bindValue(':estado', "activo", PDO::PARAM_STR);
+        }
         $consulta->bindValue(':fechaInicio', $this->fechaInicio, PDO::PARAM_STR);
         $consulta->bindValue(':fechaBaja', $this->fechaBaja, PDO::PARAM_STR);
 

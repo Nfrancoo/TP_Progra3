@@ -64,17 +64,33 @@ class ProductoController extends Productos implements IApiUsable{
         return $response->withHeader('Content-Type', 'application/json');
     }
 
+    public static function DescargarCSV($request, $response, $args) {
+        $carpeta_archivo = 'C:\xampp\htdocs\TP_Progra3\app\descargas-csv\Productos/';
+        $productos = Productos::obtenerTodos();
+        $fecha = new DateTime(date('Y-m-d'));
+        $path = $carpeta_archivo . date_format($fecha, 'Y-m-d') . 'productos.csv';
+        $archivo = fopen($path, 'w');
+        $encabezado = array('id','producto', 'tipo', 'precio', 'tiempoPreparacion');
+        fputcsv($archivo, $encabezado);
+        foreach($productos as $producto){
+            $linea = array($producto->id, $producto->producto, $producto->tipo, $producto->precio, $producto->tiempoPreparacion);
+            fputcsv($archivo, $linea);
+        }
+        $payload = json_encode(array("mensaje" => 'Archivo creado exitosamente'));
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 
     public static function CargarCSV($request, $response, $args) {
         $parametros = $request->getUploadedFiles();
         $archivo = fopen($parametros['archivo']->getFilePath(), 'r');
-        $encabezado = fgetcsv($archivo); // Leer el encabezado y avanzar al siguiente registro
+        $encabezado = fgetcsv($archivo);
         
         while (($datos = fgetcsv($archivo)) !== false) {
             $producto = new Productos();
             $producto->id = $datos[0];
-            $producto->producto = $datos[1]; // Asignar el nombre del producto
-            $producto->tipo = $datos[2]; // Asignar el tipo del producto
+            $producto->producto = $datos[1];
+            $producto->tipo = $datos[2];
             $producto->precio = $datos[3];
             $producto->tiempoPreparacion = $datos[4];
             $producto->crearProducto();

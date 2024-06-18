@@ -1,0 +1,23 @@
+id,producto,tipo,precio,tiempoPreparacion
+2,"Milanesa a caballo",comida,2800,45
+3,Palta,comida,10000,1
+4,nachos,comida,1000,15
+5,Hamburguesa,comida,1000,20
+8,Coca-Cola,Bebida,2,11
+9,"Hamburguesa con Queso",Comida,6,12
+10,"Ensalada Caesar",Ensalada,4,13
+11,"Pizza Margarita",Comida,9,14
+12,"Helado de Vainilla",Postre,4,15
+13,"Papas Fritas",Aperitivo,3,10
+14,Coca-Cola,Bebida,2,11
+15,"Hamburguesa con Queso",Comida,6,12
+16,"Ensalada Caesar",Ensalada,4,13
+17,"Pizza Margarita",Comida,9,14
+18,"Helado de Vainilla",Postre,4,15
+66,Comida,Comida,6,12
+67,"Helado de Menta",Postre,3,10
+68,Gaseosa,Bebida,2,11
+69,Lomito,Comida,6,12
+70,"Helado de Menta",Postre,3,10
+71,Gaseosa,Bebida,2,11
+72,Lomito,Comida,6,12

@@ -103,4 +103,44 @@ class UsuarioController extends Usuario implements IApiUsable
         return $response
           ->withHeader('Content-Type', 'application/json');
     }
+
+    public static function DescargarCSV($request, $response, $args) {
+      $carpeta_archivo = 'C:\xampp\htdocs\TP_Progra3\app\descargas-csv\Usuarios/';
+      $usuarios = Usuario::obtenerTodos();
+      $fecha = new DateTime(date('Y-m-d'));
+      $path = $carpeta_archivo . date_format($fecha, 'Y-m-d') . 'usuarios.csv';
+      $archivo = fopen($path, 'w');
+      $encabezado = array('id','nombre', 'rol', 'clave', 'estado', 'fechaInicio', 'fechaBaja');
+      fputcsv($archivo, $encabezado);
+      foreach($usuarios as $usuario){
+          $linea = array($usuario->id, $usuario->nombre, $usuario->rol, $usuario->clave, $usuario->estado, $usuario->fechaInicio, $usuario->fechaBaja);
+          fputcsv($archivo, $linea);
+      }
+      $payload = json_encode(array("mensaje" => 'Archivo creado exitosamente'));
+      $response->getBody()->write($payload);
+      return $response->withHeader('Content-Type', 'application/json');
+  }
+
+    public static function CargarCSV($request, $response, $args) {
+      $parametros = $request->getUploadedFiles();
+      $archivo = fopen($parametros['archivo']->getFilePath(), 'r');
+      $encabezado = fgetcsv($archivo);
+      
+      while (($datos = fgetcsv($archivo)) !== false) {
+          $producto = new Usuario();
+          $producto->id = $datos[0];
+          $producto->nombre = $datos[1];
+          $producto->rol = $datos[2];
+          $producto->clave = $datos[3];
+          $producto->estado = $datos[4];
+          $producto->fechaInicio = $datos[5];
+          $producto->fechaBaja = $datos[6];
+          $producto->crearUsuario();
+      }
+      
+      fclose($archivo);
+      $payload = json_encode(array("mensaje" => "Lista de usuarios cargada exitosamente"));
+      $response->getBody()->write($payload);
+      return $response->withHeader('Content-Type', 'application/json');
+  }
 }

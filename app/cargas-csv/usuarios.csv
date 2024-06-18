@@ -1,0 +1,4 @@
+id,nombre,rol,clave,estado,fechaInicio,fechaBaja
+11,juajua,cocinero,$2y$10$0Nk.StnCw/pbjeFYeNcktOr5S.IAp731pP6ptr8KVZYA9rakW/7KO,activo,2023-12-12,
+12,lele,mozo,1344tr1,activo,2023-12-12,
+13,caca,bartender,$2y$10$/Jed9EwuUYukS3lcKBqq2ue/tONn7hybWqzB04B9rv6RgZ9Od4wZ2,inactivo,2024-06-12,2024-06-12

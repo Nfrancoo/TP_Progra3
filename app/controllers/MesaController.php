@@ -76,4 +76,21 @@ class MesaController extends Mesa implements IApiUsable{
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     }
+
+    public static function DescargarCSV($request, $response, $args) {
+        $carpeta_archivo = 'C:\xampp\htdocs\TP_Progra3\app\descargas-csv\Mesas/';
+        $mesas = Mesa::obtenerMesasCerradas("cerrada");
+        $fecha = new DateTime(date('Y-m-d'));
+        $path = $carpeta_archivo . date_format($fecha, 'Y-m-d') . 'mesas.csv';
+        $archivo = fopen($path, 'w');
+        $encabezado = array('id','codigo', 'estado', 'cobro');
+        fputcsv($archivo, $encabezado);
+        foreach($mesas as $mesa){
+            $linea = array($mesa->id, $mesa->codigo, $mesa->estado, $mesa->cobro);
+            fputcsv($archivo, $linea);
+        }
+        $payload = json_encode(array("mensaje" => 'Archivo creado exitosamente'));
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 }
