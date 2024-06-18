@@ -45,7 +45,7 @@ class Productos{
         $objAccesoDato = AccesoDatos::obtenerInstancia();
         $consulta = $objAccesoDato->prepararConsulta("UPDATE productos SET  producto = :producto ,tipo = :tipo, precio = :precio, tiempoPreparacion = :tiempoPreparacion WHERE id = :id");
         $consulta->bindValue(':id', $producto->id, PDO::PARAM_INT);
-        $consulta->bindValue(':producto', $producto->id, PDO::PARAM_STR);
+        $consulta->bindValue(':producto', $producto->producto, PDO::PARAM_STR);
         $consulta->bindValue(':tipo', $producto->tipo, PDO::PARAM_STR);
         $consulta->bindValue(':precio', $producto->precio, PDO::PARAM_INT);
         $consulta->bindValue(':tiempoPreparacion', $producto->tiempoPreparacion, PDO::PARAM_INT);

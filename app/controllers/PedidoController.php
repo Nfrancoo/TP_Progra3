@@ -67,6 +67,7 @@ class PedidoController extends Pedido implements IApiUsable{
         else if($tipo === 'postre' || $tipo === 'Postre'){
             return 'candybar';
         }
+        
     }
 
     public static function generarCodigoPedido(){

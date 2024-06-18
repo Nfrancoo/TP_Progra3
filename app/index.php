@@ -58,10 +58,10 @@ $app->group('/usuarios', function (RouteCollectorProxy $group) {
 $app->group('/productos', function (RouteCollectorProxy $group) {
   $group->get('[/]', \ProductoController::class.':TraerTodos');
   $group->get('/{id}', \ProductoController::class.':TraerUno');
-  $group->post('[/]', \ProductoController::class.':CargarUno')->add(\ValidarProductos::class.':ValidarCampos');
-  $group->put('[/]', ProductoController::class.':ModificarUno')->add(\ValidarProductos::class.':ValidarCampos');
+  $group->post('[/]', \ProductoController::class.':CargarUno')->add(\ValidarProductos::class.':ValidarTipo')->add(\ValidarProductos::class.':ValidarCampos');
+  $group->put('[/]', ProductoController::class.':ModificarUno')->add(\ValidarProductos::class.':ValidarTipo')->add(\ValidarProductos::class.':ValidarCampos');
   $group->delete('[/]', \ProductoController::class.':BorrarUno');
-});
+})->add(\Logger::class.':ValidarSesionIniciada');
 
 
 $app->group('/pedidos', function (RouteCollectorProxy $group) {
@@ -73,7 +73,7 @@ $app->group('/pedidos', function (RouteCollectorProxy $group) {
   $group->get('/sector/preparar/{idPedido}', \PedidoController::class.':RecibirPedidos');
   $group->get('/sector/preparado/{idPedido}', \PedidoController::class.':PrepararPedido');
   $group->get('/entregar/pedido/{idPedido}', \PedidoController::class.':EntregarPedidoFinalizado');
-});
+})->add(\Logger::class.':ValidarSesionIniciada');
 
 $app->group('/mesas', function (RouteCollectorProxy $group) {
   $group->get('[/]', \MesaController::class.':TraerTodos');
@@ -81,12 +81,11 @@ $app->group('/mesas', function (RouteCollectorProxy $group) {
   $group->post('[/]', \MesaController::class.':CargarUno');
   $group->put('[/]', \MesaController::class.':ModificarUno')->add(\ValidarMesas::class.':ValidarMesa');
   $group->delete('[/]', \MesaController::class.':BorrarUno')->add(\ValidarMesas::class.':ValidarMesa');
-  
-});
+})->add(\Logger::class.':ValidarSesionIniciada');
 
 $app->group('/cobrar', function (RouteCollectorProxy $group) {
   $group->post('[/]', \MesaController::class.':CerrarMesa');
-});
+})->add(\Logger::class.':ValidarSesionIniciada');
 
 
 $app->group('/archivos', function (RouteCollectorProxy $group) {
@@ -97,6 +96,6 @@ $app->group('/archivos', function (RouteCollectorProxy $group) {
     $group->get('/descargarMesas', \MesaController::class.'::DescargarCSV');
     $group->get('/descargarPedidos', \PedidoController::class.'::DescargarCSV');
     $group->post('/cargarPedidos', \PedidoController::class.'::CargarCSV');
-});
+})->add(\Logger::class.':ValidarSesionIniciada');
 
 $app->run();

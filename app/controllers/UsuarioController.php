@@ -49,12 +49,13 @@ class UsuarioController extends Usuario implements IApiUsable
     {
         $id = $args['id'];
         $usuario = Usuario::obtenerUsuario($id);
-        var_dump($usuario);
+        //var_dump($usuario);
         if($usuario){
           $usuario->estado = "inactivo";
           $usuario->fechaBaja = date("Y-m-d");
           Usuario::bajarUsuario($usuario);
          $payload = json_encode(array("mensaje" => "Usuario bajado con exito"));
+         //var_dump($usuario);
         }else {
           
           $payload = json_encode(array("mensaje" => "Usuario no encontrado"));

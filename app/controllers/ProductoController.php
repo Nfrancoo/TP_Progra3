@@ -55,7 +55,6 @@ class ProductoController extends Productos implements IApiUsable{
         $prd = Productos::obtenerProducto($parametros['id']);
         $prd->producto = $parametros["producto"];
         $prd->tipo = $parametros['tipo'];
-        $prd->sector = $parametros['sector'];
         $prd->precio = $parametros['precio'];
         $prd->tiempoPreparacion = $parametros['tiempoPreparacion'];
         Productos::modificarProducto($prd);

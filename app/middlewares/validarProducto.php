@@ -12,4 +12,15 @@ class ValidarProductos{
         }
         throw new Exception('Campos Invalidos');
     }
+
+    public static function ValidarTipo(Request $request,  RequestHandler $handler){
+        $parametros = $request->getParsedBody();
+        $tipo_producto = ["comida", "Comida","bebida", "Bebida", "cerveza", "Cerveza", "postre", "Postre"];
+
+        if(in_array($parametros["tipo"], $tipo_producto)){
+            return $handler->handle($request);
+        }
+        throw new Exception('El rol proporcionado no existe');
+        
+    }
 }

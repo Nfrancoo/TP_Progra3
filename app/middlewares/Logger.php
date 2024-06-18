@@ -30,9 +30,25 @@ class Logger
         return $response->withHeader('Content-Type', 'application/json');
     }
 
+    public static function ValidarSesionIniciada($request, $handler){
+        $cookie = $request->getCookieParams();
+        if(isset($cookie['JWT'])){
+            $token = $cookie['JWT'];
+            $datos = Autentificador::ObtenerData($token);
+            if($datos->estado == 'activo'){
+                return $handler->handle($request);
+            }
+            else{
+                throw new Exception('Usted no es un usuario activo');
+            }
+        }
+        throw new Exception('Debe haber iniciado sesion');
+    }
+
     public static function LogOperacion($request, $response, $next)
     {
         $retorno = $next($request, $response);
         return $retorno;
     }
+
 }
