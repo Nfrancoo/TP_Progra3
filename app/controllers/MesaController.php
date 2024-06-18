@@ -46,6 +46,7 @@ class MesaController extends Mesa implements IApiUsable{
         $parametros = $request->getParsedBody();
         $mesa = Mesa::obtenerMesa($parametros['id']);
         $mesa->cobro = $parametros["cobro"];
+        $mesa->estado = $parametros["estado"];
         Mesa::modificarMesa($mesa);
         $payload = json_encode(array("mensaje" => "Mesa modificada con exito"));
         $response->getBody()->write($payload);
@@ -67,7 +68,7 @@ class MesaController extends Mesa implements IApiUsable{
             }
             $mesa->cobro = $precioACobrar;
             Mesa::modificarMesa($mesa);
-            $payload = json_encode(array("mensaje" => "Mesa cerrada - Total a pagar: [ ".$precioACobrar." ]"));
+            $payload = json_encode(array("mensaje" => "Mesa cerrada - Total a pagar: [ ".$mesa->cobro." ]"));
         }
         else{
             $payload = json_encode(array("mensaje" => "No se encontro la mesa"));

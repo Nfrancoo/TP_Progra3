@@ -19,7 +19,7 @@ class ValidarPedidos{
 
     public static function ValidarCampos(Request $request,  RequestHandler $handler){
         $parametros = $request->getParsedBody();
-        if(isset($parametros['codigo'], $parametros['idProducto'], $parametros['nombreCliente'], $parametros['cantidad'])){
+        if(isset($parametros['idMesa'], $parametros['idProducto'], $parametros['nombreCliente'], $parametros['cantidad'])){
             return $handler->handle($request);
         }
         throw new Exception('Campos Invalidos');

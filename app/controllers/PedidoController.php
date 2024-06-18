@@ -5,23 +5,7 @@ require_once './models/Productos.php';
 require_once './interfaces/IApiUsable.php';
 
 class PedidoController extends Pedido implements IApiUsable{
-
-    public function TraerUno($request, $response, $args){
-        $codigo = $args['codigo'];
-        $pedido = Pedido::obtenerPedido($codigo);
-        $payload = json_encode($pedido);
-        $response->getBody()->write($payload);
-        return $response->withHeader('Content-Type', 'application/json');
-    }
-
-    public function TraerTodos($request, $response, $args){
-        $lista = Pedido::obtenerTodos();
-        $payload = json_encode(array("listaPedidos" => $lista));
-        $response->getBody()->write($payload);
-        return $response->withHeader('Content-Type', 'application/json');
-    }
-
-    
+ 
 
     public function CargarUno($request, $response, $args){
         
@@ -35,9 +19,10 @@ class PedidoController extends Pedido implements IApiUsable{
         //var_dump($producto->tipo);
         $pedido->cantidad = $parametros['cantidad'];
         $pedido->nombreCliente = $parametros['nombreCliente'];
-        $pedido->precio = $producto->precio * $parametros['cantidad'];
+        $pedido->total = $producto->precio * $parametros['cantidad'];
         $pedido->crearPedido();
 
+        //cargar imagen
         $carpeta_archivo = 'C:\xampp\htdocs\TP_Progra3\app\imagen-mesa';
         $uploadedFiles = $request->getUploadedFiles();
         $uploadedFile = $uploadedFiles['archivo'];
@@ -50,6 +35,24 @@ class PedidoController extends Pedido implements IApiUsable{
         }
 
         $payload = json_encode(array("mensaje" => "Pedido creado con exito"));
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function TraerUno($request, $response, $args){
+        $id = $args['id'];
+        
+        $pedido = Pedido::obtenerPedidoPorId($id);
+        var_dump($pedido);
+        $payload = json_encode($pedido);
+        
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function TraerTodos($request, $response, $args){
+        $lista = Pedido::obtenerTodos();
+        $payload = json_encode(array("listaPedidos" => $lista));
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     }
@@ -100,8 +103,9 @@ class PedidoController extends Pedido implements IApiUsable{
         $pedido = Pedido::obtenerPedidoPorId($parametros['id']);
         $pedido->nombreCliente = $parametros["nombreCliente"];
         $pedido->cantidad = $parametros['cantidad'];
-        $producto = Productos::obtenerProducto($parametros['idProducto']);
-        $pedido->precio = $producto->precio * $parametros['cantidad'];
+        $pedido->idMesa = $parametros['idMesa'];
+        $producto = Productos::obtenerProducto($parametros['idProducto']); 
+        $pedido->total = $producto->precio * $pedido->cantidad;
         if(isset($parametros['idProducto'])){
             Pedido::modificarPedido($pedido, $parametros['idProducto']);
         }
@@ -146,10 +150,10 @@ class PedidoController extends Pedido implements IApiUsable{
         $fecha = new DateTime(date('Y-m-d'));
         $path = $carpeta_archivo. date_format($fecha, 'Y-m-d').'pedidos_completados.csv';
         $archivo = fopen($path, 'w');
-        $encabezado = array('id','codigo','idMesa','idProducto','nombreCliente','sector','estado','precio','cantidad');
+        $encabezado = array('id','codigo','idMesa','idProducto','nombreCliente','sector','estado','cantidad', 'total');
         fputcsv($archivo, $encabezado);
         foreach($pedidos as $pedido){
-            $linea = array($pedido->id, $pedido->codigo, $pedido->idMesa, $pedido->idProducto, $pedido->nombreCliente, $pedido->sector, $pedido->estado, $pedido->precio, $pedido->cantidad);
+            $linea = array($pedido->id, $pedido->codigo, $pedido->idMesa, $pedido->idProducto, $pedido->nombreCliente, $pedido->sector, $pedido->estado,  $pedido->cantidad, $pedido->total,);
             fputcsv($archivo, $linea);
         }
         $payload = json_encode(array("mensaje" => 'Archivo creado exitosamente'));
@@ -171,8 +175,8 @@ class PedidoController extends Pedido implements IApiUsable{
             $producto->nombreCliente = $datos[4];
             $producto->sector = $datos[5];
             $producto->estado = $datos[6];
-            $producto->precio = $datos[7];
-            $producto->cantidad = $datos[8];
+            $producto->cantidad = $datos[7];
+            $producto->total = $datos[8];
             $producto->crearPedido();
         }
         
