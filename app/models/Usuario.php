@@ -90,4 +90,21 @@ class Usuario
         $consulta->bindValue(':id', $id, PDO::PARAM_INT);
         $consulta->execute();
     }
+
+    public static function ExportarPDF($path = "./usuarios.pdf")
+    {
+        $pdf = new PDF();
+        $pdf->AddPage();
+        
+        $usuarios = Usuario::obtenerTodos();
+
+        // Agregar objetos al PDF
+        foreach ($usuarios as $usuario) {
+            $pdf->ChapterTitle($usuario->nombre);
+            $pdf->ChapterBody($usuario->email . " " .  $usuario->rol . " " . $usuario->estado);
+            $pdf->Ln();
+        }
+
+        $pdf->Output($path, 'F');
+    }
 }

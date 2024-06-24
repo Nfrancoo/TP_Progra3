@@ -1,7 +1,7 @@
 id,nombre,rol,clave,estado,fechaInicio,fechaBaja
--1,lucasJuanCarlos,desconocido,$2y$10$0Nk.StnCw/pbjeFYeNckqOr5S.IAp731pP6ptr8KVZYA9rakW/7KO,activo,2023-12-12,
+-1,lucasJuanCarlos,desconocido,$2y$10$0Nk.StnCw/pbjeFYeNckqOr5S.IAp731pP6ptr8KVZYA9rakW/7KO,inactivo,2023-12-12,2024-06-18
 2,pepe,mozo,13441,activo,2023-12-12,
 10,carlitos,bartender,$2y$10$/Jed9EwuUYukS3lcKBqq2ue/tONn4hybWqzB04B9rv6RgZ9Od4wZ2,inactivo,2024-06-12,2024-06-12
 17,juajua,cocinero,$2y$10$ST1bBkyTPdd79/vAzHrXEOqq/K.98pCUmb3MeA0OmpaKNaftjgpQa,activo,2023-12-12,
 18,lele,mozo,$2y$10$NxETJOKst7DhvHji9NKYEOqJd6Wrp1Q.sRC.NQT3/0/HjyppRnw2S,activo,2023-12-12,
-19,caca,bartender,$2y$10$pwMunJK7CWlUJODO.aCozOuP2fCV2yea6lngheVoS6OpuHpV29apm,inactivo,2024-06-12,2024-06-12
+20,Franquito,mozo,12345,activo,2024-06-18,

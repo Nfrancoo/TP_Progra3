@@ -1,6 +1,7 @@
 <?php
 require_once './models/Usuario.php';
 require_once './interfaces/IApiUsable.php';
+require_once "./models/pdf.php";
 
 class UsuarioController extends Usuario implements IApiUsable
 {
@@ -144,4 +145,14 @@ class UsuarioController extends Usuario implements IApiUsable
       $response->getBody()->write($payload);
       return $response->withHeader('Content-Type', 'application/json');
   }
+
+
+    public function DescargarPDF($request, $response, $args)
+    {
+        Usuario::ExportarPDF();
+        $payload = json_encode(array("mensaje" => "Usuarios exportados a pdf con exito"));
+
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 }
