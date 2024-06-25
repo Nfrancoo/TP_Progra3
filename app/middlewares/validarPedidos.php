@@ -7,14 +7,17 @@ require_once './models/Pedido.php';
 class ValidarPedidos{
     public static function ValidarMesaExistente(Request $request,  RequestHandler $handler){
         $parametros = $request->getParsedBody();
-        if(isset($parametros['id'])){
-            $id = $parametros['id'];
-            $pedido = Pedido::obtenerPedido($id);
-            if($pedido){
+        if(isset($parametros['idMesa'])){
+            $codigo = $parametros['idMesa'];
+            $mesa = Mesa::obtenerMesaPorCodigo($codigo);
+            if($mesa){
                 return $handler->handle($request);
+            } else {
+                throw new Exception('Mesa no existente');
             }
+        } else {
+            throw new Exception('Falta el parámetro idMesa');
         }
-        throw new Exception('Pedido no existente');
     }
 
     public static function ValidarCampos(Request $request,  RequestHandler $handler){

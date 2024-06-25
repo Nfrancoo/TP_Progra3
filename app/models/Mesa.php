@@ -86,11 +86,19 @@ class Mesa{
         return $codigo;
     }
 
-    public static function CobrarYCerrarMesa($codigo){
+    public static function CerrarMesaSocio($codigo){
         $objAccesoDato = AccesoDatos::obtenerInstancia();
         $consulta = $objAccesoDato->prepararConsulta("UPDATE mesas SET estado = :estado WHERE codigo = :codigo");
         $consulta->bindValue(':codigo', $codigo, PDO::PARAM_STR);
         $consulta->bindValue(':estado', 'cerrada', PDO::PARAM_STR);
+        $consulta->execute();
+    }
+
+    public static function Cobrar($codigo, $cobro){
+        $objAccesoDato = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDato->prepararConsulta("UPDATE mesas SET cobro = :cobro WHERE codigo = :codigo");
+        $consulta->bindValue(':codigo', $codigo, PDO::PARAM_STR);
+        $consulta->bindValue(':cobro', $cobro, PDO::PARAM_INT);
         $consulta->execute();
     }
 

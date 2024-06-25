@@ -23,6 +23,8 @@ require_once './middlewares/validarMesas.php';
 require_once './controllers/MesaController.php';
 require_once './middlewares/JWS.php';
 require_once './models/pdf.php';
+require_once './controllers/ComentarioController.php';
+require_once './middlewares/validarComentarios.php';
 
 // Load ENV
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
@@ -37,7 +39,6 @@ $app->addErrorMiddleware(true, true, true);
 // Add parse body
 $app->addBodyParsingMiddleware();
 
-// php -S localhost:666 -t app
 
 
 $app->group('/sesion', function (RouteCollectorProxy $group) {
@@ -71,13 +72,18 @@ $app->group('/pedidos', function (RouteCollectorProxy $group) {
   $group->get('[/]', \PedidoController::class.':TraerTodos')->add(\ValidarUsuario::class.':ValidarPermisosDeRolSocio');
   $group->get('/{id}', \PedidoController::class.':TraerUno')->add(\ValidarUsuario::class.':ValidarPermisosDeRolSocio');
   $group->post('[/]', \PedidoController::class.':CargarUno')->add(\ValidarUsuario::class.':ValidarPermisosDeRolSocioOMozo');
-  $group->put('[/]', \PedidoController::class.':ModificarUno')->add(\ValidarPedidos::class.':ValidarEstado')->add(\ValidarUsuario::class.':ValidarPermisosDeRolSocioOMozo');
+  $group->put('[/]', \PedidoController::class.':ModificarUno')->add(\ValidarPedidos::class.':ValidarEstado')->add(\ValidarPedidos::class.':ValidarMesaExistente')->add(\ValidarUsuario::class.':ValidarPermisosDeRolSocioOMozo');
   $group->delete('[/]', \PedidoController::class.':BorrarUno')->add(\ValidarUsuario::class.':ValidarPermisosDeRolSocioOMozo');
-  $group->get('/por/sector', \PedidoController::class.':TraerTodosPorSector');
-  $group->get('/sector/preparar/{idPedido}', \PedidoController::class.':RecibirPedidos');
-  $group->get('/sector/preparado/{idPedido}', \PedidoController::class.':PrepararPedido')->add(\ValidarUsuario::class.':VerificarUsuario');
-  $group->get('/entregar/pedido/{idPedido}', \PedidoController::class.':EntregarPedidoFinalizado')->add(\ValidarUsuario::class.':VerificarUsuario');;
+  $group->get('/listar/pendientes', \PedidoController::class.':ListarPendientesDetallePedido')->add(\ValidarUsuario::class.':validarRolesListar');
+  $group->get('/entregar/pedido/{idPedido}', \PedidoController::class.':EntregarPedidoFinalizado')->add(\ValidarUsuario::class.':ValidarPermisosDeRolSocioOMozo');
+  $group->post('/mostrar/tiempo', \PedidoController::class.':ListarTiempoPendiente');
+  $group->get('/mostrar/todos-tiempo', \PedidoController::class . ':SocioListarTiempoPendiente');
 })->add(\Logger::class.':ValidarSesion');
+
+$app->group('/hacer', function (RouteCollectorProxy $group) {
+  $group->get('/pedidos/detalle', \PedidoController::class . ':PrepararDetallePedido')->add(\ValidarUsuario::class.':validarRoles');
+})->add(\Logger::class.':ValidarSesion');
+
 
 $app->group('/mesas', function (RouteCollectorProxy $group) {
   $group->get('[/]', \MesaController::class.':TraerTodos')->add(\ValidarUsuario::class.':ValidarPermisosDeRolSocioOMozo');
@@ -85,11 +91,13 @@ $app->group('/mesas', function (RouteCollectorProxy $group) {
   $group->post('[/]', \MesaController::class.':CargarUno')->add(\ValidarUsuario::class.':ValidarPermisosDeRolSocio');
   $group->put('[/]', \MesaController::class.':ModificarUno')->add(\ValidarMesas::class.':ValidarMesa')->add(\ValidarUsuario::class.':ValidarPermisosDeRolSocio');
   $group->delete('[/]', \MesaController::class.':BorrarUno')->add(\ValidarMesas::class.':ValidarMesa')->add(\ValidarUsuario::class.':ValidarPermisosDeRolSocio');
+  $group->get('/mostrar/todos-estado', \MesaController::class . ':SocioTraeEstadoMesa');
 })->add(\Logger::class.':ValidarSesion');
 
 $app->group('/cobrar', function (RouteCollectorProxy $group) {
-  $group->post('[/]', \MesaController::class.':CerrarMesa');
-})->add(\Logger::class.':ValidarSesion')->add(\ValidarUsuario::class.':ValidarPermisosDeRolSocioOMozo');
+  $group->post('[/]', \MesaController::class.':cobrarMesa')->add(\ValidarUsuario::class.':ValidarPermisosDeRolSocioOMozo');
+  $group->post('/cerrar', \MesaController::class.':cerrarMesa')->add(\ValidarUsuario::class.':ValidarPermisosDeRolSocio');
+})->add(\Logger::class.':ValidarSesion');
 
 
 $app->group('/archivos', function (RouteCollectorProxy $group) {
@@ -98,9 +106,16 @@ $app->group('/archivos', function (RouteCollectorProxy $group) {
     $group->get('/descargarProductos', \ProductoController::class.'::DescargarCSV');
     $group->post('/cargarProductos', \ProductoController::class.'::CargarCSV');
     $group->get('/descargarMesas', \MesaController::class.'::DescargarCSV');
-    $group->get('/descargarPedidos', \PedidoController::class.'::DescargarCSV');
-    $group->post('/cargarPedidos', \PedidoController::class.'::CargarCSV');
     $group->get('/descargarPdfUsuarios', \UsuarioController::class.':DescargarPDF');
 })->add(\Logger::class.':ValidarSesion')->add(\ValidarUsuario::class.':ValidarPermisosDeRolSocio');
+
+
+$app->post('/comentar', \ComentarioController::class.':CargarUno')
+->add(\ValidarMesas::class.':ValidarMesaCerrada')
+->add(\ValidarComentarios::class.':ValidarCodigoMesa')
+->add(\ValidarMesas::class.':ValidarMesaCodigoMesa')
+->add(\ValidarComentarios::class.':ValidarCamposComentario');
+
+$app->get('/mejores-comentarios', \ComentarioController::class.':TraerMejores')->add(\validarUsuario::class.':ValidarPermisosDeRolSocio');
 
 $app->run();

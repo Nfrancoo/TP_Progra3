@@ -54,29 +54,49 @@ class MesaController extends Mesa implements IApiUsable{
     }
 
 
-    public static function CerrarMesa($request, $response, $args) {
+    public static function cobrarMesa($request, $response, $args) {
         $parametros = $request->getParsedBody();
         $codigoMesa = $parametros['codigo'];
-        if(isset($codigoMesa)){
-            $listaPedidos = Pedido::obtenerPedidosPorMesa($codigoMesa);
+        $id = $parametros['id'];
+        if($codigoMesa){
+            $pedido = Pedido::obtenerPedidosPorMesaEId($codigoMesa, $id);
+            var_dump($pedido["estado"]);
             $mesa = Mesa::obtenerMesaPorCodigo($codigoMesa);
             $precioACobrar = 0;
-            foreach($listaPedidos as $pedido){
-                if($pedido->estado == 'completado'){
-                    $precioACobrar += $pedido->importe;
-                }
+            if($pedido["estado"] == 'completado'){
+                var_dump($pedido["total"]);
+                $precioACobrar += $pedido["total"];
             }
-            $mesa->cobro = $precioACobrar;
-            Mesa::modificarMesa($mesa);
-            $payload = json_encode(array("mensaje" => "Mesa cerrada - Total a pagar: [ ".$mesa->cobro." ]"));
+            $payload = json_encode(array("mensaje" => "Total a pagar: [ ".$precioACobrar." ]"));
+            Mesa::Cobrar($mesa->codigo, $precioACobrar);
         }
         else{
             $payload = json_encode(array("mensaje" => "No se encontro la mesa"));
         }
-        Mesa::CobrarYCerrarMesa($parametros['codigo']);
+        
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     }
+
+    public static function cerrarMesa($request, $response, $args) {
+        $parametros = $request->getParsedBody();
+        $codigoMesa = $parametros['codigo'];
+        $id = $parametros['id'];
+        if($codigoMesa){
+            $pedido = Pedido::obtenerPedidosPorMesaEId($codigoMesa, $id);
+            var_dump($pedido["estado"]);
+            $mesa = Mesa::obtenerMesaPorCodigo($codigoMesa);
+            $payload = json_encode(array("mensaje" => "Mesa cerrada"));
+            Mesa::CerrarMesaSocio($mesa->codigo);
+        }
+        else{
+            $payload = json_encode(array("mensaje" => "No se encontro la mesa"));
+        }
+        
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
 
     public static function DescargarCSV($request, $response, $args) {
         $carpeta_archivo = 'C:\xampp\htdocs\TP_Progra3\app\descargas-csv\Mesas/';
@@ -91,6 +111,24 @@ class MesaController extends Mesa implements IApiUsable{
             fputcsv($archivo, $linea);
         }
         $payload = json_encode(array("mensaje" => 'Archivo creado exitosamente'));
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function SocioTraeEstadoMesa($request, $response, $args){
+        $lista = Mesa::obtenerTodos();
+        if ($lista) {
+            foreach ($lista as $mesa) {
+                $resultado[] = array(
+                    "id" => $mesa->id,
+                    "tiempoPreparacion" => $mesa->estado
+                );
+            }
+            $payload = json_encode($resultado);
+        }else {
+            $payload = json_encode(array("mensaje" => "No hay mesas disponibles"));
+        }
+
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     }
