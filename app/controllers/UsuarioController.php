@@ -132,8 +132,8 @@ class UsuarioController extends Usuario implements IApiUsable
           $producto = new Usuario();
           $producto->id = $datos[0];
           $producto->nombre = $datos[1];
+          $producto->clave = $datos[2];
           $producto->rol = $datos[2];
-          $producto->clave = $datos[3];
           $producto->estado = $datos[4];
           $producto->fechaInicio = $datos[5];
           $producto->fechaBaja = $datos[6];

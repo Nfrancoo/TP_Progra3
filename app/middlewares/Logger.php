@@ -20,14 +20,14 @@ class Logger
         //var_dump($usuario->clave);
         if($usuario !== null && password_verify($clave, $usuario->clave)){
             $token = Autentificador::CrearToken(array('id' => $usuario->id, 'nombre' => $usuario->nombre, 'rol' => $usuario->rol, 'estado' => $usuario->estado));
-            $payload = json_encode(array('mensaje'=>'Logueo Exitoso - Usted es: [ '.$usuario->rol.' ], tu token es: '.$token));
+            
 
             $registro = new Registro();
             $registro->idUsuario = $usuario->id;
             $registro->fechaInicio = date('Y-m-d H:i:s');
 
             $registro->crearUsuario();  
-            $payload = json_encode(array('jwt' => $token));
+            $payload = json_encode(array('mensaje'=>'Logueo Exitoso, tu token es: '.$token));
 
         }
         else{
