@@ -17,7 +17,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTg3Mjg4OTcsImV4cCI6MTcxODc4ODg5NywiYXVkIjoiYjhjZWNiMjVkMjM5MmFiNGE5N2MxMDM4YTY5NzRhZTkwOWE2ZjJlOSIsImRhdGEiOnsiaWQiOjE3LCJub21icmUiOiJqdWFqdWEiLCJyb2wiOiJjb2NpbmVybyIsImVzdGFkbyI6ImFjdGl2byJ9LCJhcHAiOiJDb21hbmRhIn0.Z32GlkkwPYuE9XxVeTSASvPP-0am0TfIZNp6xnMH5yo",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTkyOTI1NDYsImV4cCI6MTcxOTM1MjU0NiwiYXVkIjoiYjhjZWNiMjVkMjM5MmFiNGE5N2MxMDM4YTY5NzRhZTkwOWE2ZjJlOSIsImRhdGEiOnsiaWQiOjI2LCJub21icmUiOiJsb3F1aWxsbyIsInJvbCI6InNvY2lvIiwiZXN0YWRvIjoiYWN0aXZvIn0sImFwcCI6IkNvbWFuZGEifQ.iB5HID1tMg8q8Q-fkNiSNEcV1NeTYxkGluC_PZtd088",
 									"type": "string"
 								}
 							]
@@ -29,12 +29,12 @@
 							"formdata": [
 								{
 									"key": "nombre",
-									"value": "juajua",
+									"value": "loquillo",
 									"type": "text"
 								},
 								{
 									"key": "clave",
-									"value": "$2y$10$ST1bBkyTPdd79/vAzHrXEOqq/K.98pCUmb3MeA0OmpaKNaftjgpQa",
+									"value": "1234",
 									"type": "text"
 								}
 							]
@@ -91,6 +91,16 @@
 				{
 					"name": "TraerTodos",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTg3NTY2ODYsImV4cCI6MTcxODgxNjY4NiwiYXVkIjoiYjhjZWNiMjVkMjM5MmFiNGE5N2MxMDM4YTY5NzRhZTkwOWE2ZjJlOSIsImRhdGEiOnsiaWQiOjE3LCJub21icmUiOiJqdWFqdWEiLCJyb2wiOiJjb2NpbmVybyIsImVzdGFkbyI6ImFjdGl2byJ9LCJhcHAiOiJDb21hbmRhIn0.Pgz_uDTfpuaAKNfDXz3DpuvUTejD6Gob6u0SHftiFGo",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -159,12 +169,12 @@
 							"formdata": [
 								{
 									"key": "nombre",
-									"value": "Franco",
+									"value": "loquillo5",
 									"type": "text"
 								},
 								{
 									"key": "rol",
-									"value": "mozo",
+									"value": "usuario",
 									"type": "text"
 								},
 								{
@@ -255,6 +265,16 @@
 				{
 					"name": "TraerTodos",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTg3NTY2ODYsImV4cCI6MTcxODgxNjY4NiwiYXVkIjoiYjhjZWNiMjVkMjM5MmFiNGE5N2MxMDM4YTY5NzRhZTkwOWE2ZjJlOSIsImRhdGEiOnsiaWQiOjE3LCJub21icmUiOiJqdWFqdWEiLCJyb2wiOiJjb2NpbmVybyIsImVzdGFkbyI6ImFjdGl2byJ9LCJhcHAiOiJDb21hbmRhIn0.Pgz_uDTfpuaAKNfDXz3DpuvUTejD6Gob6u0SHftiFGo",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -275,6 +295,16 @@
 				{
 					"name": "TraerUno",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTkxODE4MDQsImV4cCI6MTcxOTI0MTgwNCwiYXVkIjoiYjhjZWNiMjVkMjM5MmFiNGE5N2MxMDM4YTY5NzRhZTkwOWE2ZjJlOSIsImRhdGEiOnsiaWQiOjI0LCJub21icmUiOiJGcmFuY28iLCJyb2wiOiJtb3pvIiwiZXN0YWRvIjoiYWN0aXZvIn0sImFwcCI6IkNvbWFuZGEifQ.DMnGdz2gPGZO_yPHZHUWupcxZ-0v0-NMfvYgYkcJb5",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -295,6 +325,16 @@
 				{
 					"name": "CargarUno",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTkyODY5NDUsImV4cCI6MTcxOTM0Njk0NSwiYXVkIjoiYjhjZWNiMjVkMjM5MmFiNGE5N2MxMDM4YTY5NzRhZTkwOWE2ZjJlOSIsImRhdGEiOnsiaWQiOjI2LCJub21icmUiOiJsb3F1aWxsbyIsInJvbCI6InNvY2lvIiwiZXN0YWRvIjoiYWN0aXZvIn0sImFwcCI6IkNvbWFuZGEifQ.Qa1_KA0wgadbOv8LwEePVo5MtXo9VXGo1FgABrnCJxU",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -302,7 +342,7 @@
 							"formdata": [
 								{
 									"key": "producto",
-									"value": "Fugazzeta Rellena",
+									"value": "Milanesa a Caballo",
 									"type": "text"
 								},
 								{
@@ -312,7 +352,7 @@
 								},
 								{
 									"key": "precio",
-									"value": "1234",
+									"value": "7000",
 									"type": "text"
 								},
 								{
@@ -423,10 +463,20 @@
 				{
 					"name": "TraerUno",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTkyODY5NDUsImV4cCI6MTcxOTM0Njk0NSwiYXVkIjoiYjhjZWNiMjVkMjM5MmFiNGE5N2MxMDM4YTY5NzRhZTkwOWE2ZjJlOSIsImRhdGEiOnsiaWQiOjI2LCJub21icmUiOiJsb3F1aWxsbyIsInJvbCI6InNvY2lvIiwiZXN0YWRvIjoiYWN0aXZvIn0sImFwcCI6IkNvbWFuZGEifQ.Qa1_KA0wgadbOv8LwEePVo5MtXo9VXGo1FgABrnCJxU",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:666/pedidos/3",
+							"raw": "http://localhost:666/pedidos/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -434,7 +484,7 @@
 							"port": "666",
 							"path": [
 								"pedidos",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -443,6 +493,16 @@
 				{
 					"name": "CargarUno",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTkzMjU3ODEsImV4cCI6MTcxOTM4NTc4MSwiYXVkIjoiYjhjZWNiMjVkMjM5MmFiNGE5N2MxMDM4YTY5NzRhZTkwOWE2ZjJlOSIsImRhdGEiOnsiaWQiOjI4LCJub21icmUiOiJsb3F1aWxsbzEiLCJyb2wiOiJtb3pvIiwiZXN0YWRvIjoiYWN0aXZvIn0sImFwcCI6IkNvbWFuZGEifQ.orXjJEF1IyFggY1nEguf82vc4ns4cUKmGEOj3bGBNqI",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -455,29 +515,29 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "idMesa",
-									"value": "AbFhwZAuFgvmP64l",
-									"type": "text"
-								},
-								{
-									"key": "idProducto",
-									"value": "4",
-									"type": "text"
-								},
-								{
 									"key": "nombreCliente",
-									"value": "lalo",
+									"value": "Lucas",
 									"type": "text"
 								},
 								{
-									"key": "cantidad",
-									"value": "4",
+									"key": "idMesa",
+									"value": "wwu9t",
+									"type": "text"
+								},
+								{
+									"key": "productos",
+									"value": "[{\"idProducto\" : 83, \"cantidad\" : 6},\n{\"idProducto\" : 84, \"cantidad\" : 2},\n{\"idProducto\" : 85, \"cantidad\" : 1},\n{\"idProducto\" : 86, \"cantidad\" : 1}]",
 									"type": "text"
 								},
 								{
 									"key": "archivo",
 									"type": "file",
-									"src": "/C:/Users/franc/Pictures/Screenshots/Captura de pantalla (8).png"
+									"src": "/C:/Users/franc/Pictures/Screenshots/Captura de pantalla (6).png"
+								},
+								{
+									"key": "tiempoPreparacion",
+									"value": "30 min",
+									"type": "text"
 								}
 							]
 						},
@@ -499,11 +559,21 @@
 				{
 					"name": "ModificarUno",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTkyODY5NDUsImV4cCI6MTcxOTM0Njk0NSwiYXVkIjoiYjhjZWNiMjVkMjM5MmFiNGE5N2MxMDM4YTY5NzRhZTkwOWE2ZjJlOSIsImRhdGEiOnsiaWQiOjI2LCJub21icmUiOiJsb3F1aWxsbyIsInJvbCI6InNvY2lvIiwiZXN0YWRvIjoiYWN0aXZvIn0sImFwcCI6IkNvbWFuZGEifQ.Qa1_KA0wgadbOv8LwEePVo5MtXo9VXGo1FgABrnCJxU",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 3,\r\n    \"nombreCliente\": \"Flancha\",\r\n    \"idProducto\" : 2,\r\n    \"cantidad\": 4,\r\n    \"idMesa\": \"AbFhwZAuFgvmP64l\"\r\n\r\n}",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"nombreCliente\": \"Flancha\",\r\n    \"idMesa\": \"WO4XL\"\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -528,11 +598,21 @@
 				{
 					"name": "BorrarUno",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTkyODY5NDUsImV4cCI6MTcxOTM0Njk0NSwiYXVkIjoiYjhjZWNiMjVkMjM5MmFiNGE5N2MxMDM4YTY5NzRhZTkwOWE2ZjJlOSIsImRhdGEiOnsiaWQiOjI2LCJub21icmUiOiJsb3F1aWxsbyIsInJvbCI6InNvY2lvIiwiZXN0YWRvIjoiYWN0aXZvIn0sImFwcCI6IkNvbWFuZGEifQ.Qa1_KA0wgadbOv8LwEePVo5MtXo9VXGo1FgABrnCJxU",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\":18\r\n}",
+							"raw": "{\r\n    \"id\":1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -540,15 +620,166 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:666/productos/",
+							"raw": "http://localhost:666/pedidos/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "666",
 							"path": [
-								"productos",
+								"pedidos",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "prepararPedidos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTkyOTUyMDYsImV4cCI6MTcxOTM1NTIwNiwiYXVkIjoiYjhjZWNiMjVkMjM5MmFiNGE5N2MxMDM4YTY5NzRhZTkwOWE2ZjJlOSIsImRhdGEiOnsiaWQiOjMwLCJub21icmUiOiJsb3F1aWxsbzMiLCJyb2wiOiJjb2NpbmVybyIsImVzdGFkbyI6ImFjdGl2byJ9LCJhcHAiOiJDb21hbmRhIn0.XjxLHHTBJK0DJJKhtuCAMorGIYXEHeNdjMvvx2q7vRs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:666/pedidos/detalle-pedido?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"pedidos",
+								"detalle-pedido"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EntregarPedido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTkyOTI1NDYsImV4cCI6MTcxOTM1MjU0NiwiYXVkIjoiYjhjZWNiMjVkMjM5MmFiNGE5N2MxMDM4YTY5NzRhZTkwOWE2ZjJlOSIsImRhdGEiOnsiaWQiOjI2LCJub21icmUiOiJsb3F1aWxsbyIsInJvbCI6InNvY2lvIiwiZXN0YWRvIjoiYWN0aXZvIn0sImFwcCI6IkNvbWFuZGEifQ.iB5HID1tMg8q8Q-fkNiSNEcV1NeTYxkGluC_PZtd088",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:666/pedidos/entregar/pedido/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"pedidos",
+								"entregar",
+								"pedido",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarPendientes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTkyOTUyNjUsImV4cCI6MTcxOTM1NTI2NSwiYXVkIjoiYjhjZWNiMjVkMjM5MmFiNGE5N2MxMDM4YTY5NzRhZTkwOWE2ZjJlOSIsImRhdGEiOnsiaWQiOjMyLCJub21icmUiOiJsb3F1aWxsbzQiLCJyb2wiOiJiYXJ0ZW5kZXIiLCJlc3RhZG8iOiJhY3Rpdm8ifSwiYXBwIjoiQ29tYW5kYSJ9.A3vEu40PSwKjDV6Is4Z-deozFGhpxKo904FufKvwHqI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:666/pedidos/listar/pendientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"pedidos",
+								"listar",
+								"pendientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "usuario lista tiempo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTkzMjU1MjksImV4cCI6MTcxOTM4NTUyOSwiYXVkIjoiYjhjZWNiMjVkMjM5MmFiNGE5N2MxMDM4YTY5NzRhZTkwOWE2ZjJlOSIsImRhdGEiOnsiaWQiOjM1LCJub21icmUiOiJsb3F1aWxsbzYiLCJyb2wiOiJ1c3VhcmlvIiwiZXN0YWRvIjoiYWN0aXZvIn0sImFwcCI6IkNvbWFuZGEifQ.yfaVDnMtIDRmICdUq75jzTaevslHXaw1VExIty2pYrc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:666/pedidos/mostrar/tiempo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"pedidos",
+								"mostrar",
+								"tiempo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "socio lista todos los tiempos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:666/pedidos/mostrar/todos-tiempo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"pedidos",
+								"mostrar",
+								"todos-tiempo"
 							]
 						}
 					},
@@ -693,6 +924,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "socio lista mesas",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -700,16 +939,31 @@
 			"name": "/cobrar",
 			"item": [
 				{
-					"name": "cerrarMesa",
+					"name": "cobrar",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTkyOTUxNTAsImV4cCI6MTcxOTM1NTE1MCwiYXVkIjoiYjhjZWNiMjVkMjM5MmFiNGE5N2MxMDM4YTY5NzRhZTkwOWE2ZjJlOSIsImRhdGEiOnsiaWQiOjI4LCJub21icmUiOiJsb3F1aWxsbzEiLCJyb2wiOiJtb3pvIiwiZXN0YWRvIjoiYWN0aXZvIn0sImFwcCI6IkNvbWFuZGEifQ.I_EqzVJIkZliYs7VfGEr_qCJy-GI_xpId8-ZmtBmSJI",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
 								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
 									"key": "codigo",
-									"value": "XaA2TaX71RxyFla7",
+									"value": "wwu9t",
 									"type": "text"
 								}
 							]
@@ -726,6 +980,233 @@
 								""
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "cerrar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTkyOTUxNTAsImV4cCI6MTcxOTM1NTE1MCwiYXVkIjoiYjhjZWNiMjVkMjM5MmFiNGE5N2MxMDM4YTY5NzRhZTkwOWE2ZjJlOSIsImRhdGEiOnsiaWQiOjI4LCJub21icmUiOiJsb3F1aWxsbzEiLCJyb2wiOiJtb3pvIiwiZXN0YWRvIjoiYWN0aXZvIn0sImFwcCI6IkNvbWFuZGEifQ.I_EqzVJIkZliYs7VfGEr_qCJy-GI_xpId8-ZmtBmSJI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "codigo",
+									"value": "wwu9t",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:666/cobrar/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"cobrar",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/archivos",
+			"item": [
+				{
+					"name": "CARGAR",
+					"item": [
+						{
+							"name": "/cargarCsvUsuario",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTkzMjY0MzYsImV4cCI6MTcxOTM4NjQzNiwiYXVkIjoiYjhjZWNiMjVkMjM5MmFiNGE5N2MxMDM4YTY5NzRhZTkwOWE2ZjJlOSIsImRhdGEiOnsiaWQiOjI5LCJub21icmUiOiJsb3F1aWxsbzIiLCJyb2wiOiJzb2NpbyIsImVzdGFkbyI6ImFjdGl2byJ9LCJhcHAiOiJDb21hbmRhIn0.Q_7Lc8W_iRzfR1pD4Rjez01BE37-dx3Va2U2gSt2FLQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "archivo",
+											"type": "file",
+											"src": "/C:/xampp/htdocs/TP_Progra3/app/cargas-csv/usuarios.csv"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:666/archivos/cargarUsuarios",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "666",
+									"path": [
+										"archivos",
+										"cargarUsuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/cargarCsvProducto",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTkzMjY0MzYsImV4cCI6MTcxOTM4NjQzNiwiYXVkIjoiYjhjZWNiMjVkMjM5MmFiNGE5N2MxMDM4YTY5NzRhZTkwOWE2ZjJlOSIsImRhdGEiOnsiaWQiOjI5LCJub21icmUiOiJsb3F1aWxsbzIiLCJyb2wiOiJzb2NpbyIsImVzdGFkbyI6ImFjdGl2byJ9LCJhcHAiOiJDb21hbmRhIn0.Q_7Lc8W_iRzfR1pD4Rjez01BE37-dx3Va2U2gSt2FLQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "archivo",
+											"type": "file",
+											"src": "/C:/xampp/htdocs/TP_Progra3/app/cargas-csv/usuarios.csv"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:666/archivos/cargarUsuarios",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "666",
+									"path": [
+										"archivos",
+										"cargarUsuarios"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Descargar",
+					"item": [
+						{
+							"name": "/DescargarCsvUsuario",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTkzMjY0MzYsImV4cCI6MTcxOTM4NjQzNiwiYXVkIjoiYjhjZWNiMjVkMjM5MmFiNGE5N2MxMDM4YTY5NzRhZTkwOWE2ZjJlOSIsImRhdGEiOnsiaWQiOjI5LCJub21icmUiOiJsb3F1aWxsbzIiLCJyb2wiOiJzb2NpbyIsImVzdGFkbyI6ImFjdGl2byJ9LCJhcHAiOiJDb21hbmRhIn0.Q_7Lc8W_iRzfR1pD4Rjez01BE37-dx3Va2U2gSt2FLQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:666/archivos/descargarProductos",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "666",
+									"path": [
+										"archivos",
+										"descargarProductos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DescargarCsvMesa",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "DescargarCsvProductos",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "/descargarPDF",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:666/archivos/descargarUsuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "666",
+							"path": [
+								"archivos",
+								"descargarUsuarios"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/Comentarios",
+			"item": [
+				{
+					"name": "CargarUno",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "mejores-comentarios",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
