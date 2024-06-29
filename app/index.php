@@ -118,4 +118,10 @@ $app->post('/comentar', \ComentarioController::class.':CargarUno')
 
 $app->get('/mejores-comentarios', \ComentarioController::class.':TraerMejores')->add(\validarUsuario::class.':ValidarPermisosDeRolSocio');
 
+
+$app->group('/estadisticas', function (RouteCollectorProxy $group) {
+  $group->get('/promedio', \PedidoController::class.':CalcularPromedioIngresos30Dias');
+})->add(\ValidarUsuario::class.':ValidarPermisosDeRolSocio')
+->add(\Logger::class.':ValidarSesion');
+
 $app->run();
