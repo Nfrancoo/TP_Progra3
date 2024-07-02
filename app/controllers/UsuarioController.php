@@ -107,21 +107,28 @@ class UsuarioController extends Usuario implements IApiUsable
     }
 
     public static function DescargarCSV($request, $response, $args) {
-      $carpeta_archivo = 'C:\xampp\htdocs\TP_Progra3\app\descargas-csv\Usuarios/';
+      
       $usuarios = Usuario::obtenerTodos();
       $fecha = new DateTime(date('Y-m-d'));
-      $path = $carpeta_archivo . date_format($fecha, 'Y-m-d') . 'usuarios.csv';
-      $archivo = fopen($path, 'w');
+      $filename = "usuarios-" . $fecha->format('Y-m-d') . ".csv";
+      
+      $response = $response->withHeader('Content-Type', 'text/csv')
+                           ->withHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
+      
+      $output = fopen('php://output', 'w');
       $encabezado = array('id','nombre', 'rol', 'clave', 'estado', 'fechaInicio', 'fechaBaja');
-      fputcsv($archivo, $encabezado);
-      foreach($usuarios as $usuario){
+      fputcsv($output, $encabezado);
+    
+      foreach($usuarios as $usuario) {
           $linea = array($usuario->id, $usuario->nombre, $usuario->rol, $usuario->clave, $usuario->estado, $usuario->fechaInicio, $usuario->fechaBaja);
-          fputcsv($archivo, $linea);
+          fputcsv($output, $linea);
       }
-      $payload = json_encode(array("mensaje" => 'Archivo creado exitosamente'));
-      $response->getBody()->write($payload);
-      return $response->withHeader('Content-Type', 'application/json');
-  }
+      
+      fclose($output);
+      
+      return $response;
+    }
+
 
     public static function CargarCSV($request, $response, $args) {
       $parametros = $request->getUploadedFiles();

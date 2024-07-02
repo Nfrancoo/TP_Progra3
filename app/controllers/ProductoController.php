@@ -64,20 +64,23 @@ class ProductoController extends Productos implements IApiUsable{
     }
 
     public static function DescargarCSV($request, $response, $args) {
-        $carpeta_archivo = 'C:\xampp\htdocs\TP_Progra3\app\descargas-csv\Productos/';
         $productos = Productos::obtenerTodos();
         $fecha = new DateTime(date('Y-m-d'));
-        $path = $carpeta_archivo . date_format($fecha, 'Y-m-d') . 'productos.csv';
-        $archivo = fopen($path, 'w');
+        $filename = "productos-" . $fecha->format('Y-m-d') . ".csv";
+        
+        $response = $response->withHeader('Content-Type', 'text/csv')
+                             ->withHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
+        
+        $output = fopen('php://output', 'w');
         $encabezado = array('id','producto', 'tipo', 'precio', 'tiempoPreparacion');
-        fputcsv($archivo, $encabezado);
+        fputcsv($output, $encabezado);
         foreach($productos as $producto){
             $linea = array($producto->id, $producto->producto, $producto->tipo, $producto->precio, $producto->tiempoPreparacion);
-            fputcsv($archivo, $linea);
+            fputcsv($output, $linea);
         }
-        $payload = json_encode(array("mensaje" => 'Archivo creado exitosamente'));
-        $response->getBody()->write($payload);
-        return $response->withHeader('Content-Type', 'application/json');
+        fclose($output);
+        
+        return $response;
     }
 
     public static function CargarCSV($request, $response, $args) {

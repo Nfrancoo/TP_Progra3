@@ -117,21 +117,26 @@ class MesaController extends Mesa implements IApiUsable{
 
 
     public static function DescargarCSV($request, $response, $args) {
-        $carpeta_archivo = 'C:\xampp\htdocs\TP_Progra3\app\descargas-csv\Mesas/';
-        $mesas = Mesa::obtenerMesasCerradas("cerrada");
+        $mesas = Mesa::obtenerTodos();
         $fecha = new DateTime(date('Y-m-d'));
-        $path = $carpeta_archivo . date_format($fecha, 'Y-m-d') . 'mesas.csv';
-        $archivo = fopen($path, 'w');
+        $filename = "mesas-" . $fecha->format('Y-m-d') . ".csv";
+        
+        $response = $response->withHeader('Content-Type', 'text/csv')
+                             ->withHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
+        
+        $output = fopen('php://output', 'w');
         $encabezado = array('id','codigo', 'estado', 'cobro');
-        fputcsv($archivo, $encabezado);
+        fputcsv($output, $encabezado);
         foreach($mesas as $mesa){
             $linea = array($mesa->id, $mesa->codigo, $mesa->estado, $mesa->cobro);
-            fputcsv($archivo, $linea);
+            fputcsv($output, $linea);
         }
-        $payload = json_encode(array("mensaje" => 'Archivo creado exitosamente'));
-        $response->getBody()->write($payload);
-        return $response->withHeader('Content-Type', 'application/json');
+
+        fclose($output);
+        
+        return $response;
     }
+
 
     public function SocioTraeEstadoMesa($request, $response, $args){
         $lista = Mesa::obtenerTodos();

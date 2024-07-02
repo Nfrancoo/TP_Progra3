@@ -98,7 +98,6 @@ class Usuario
         
         $usuarios = Usuario::obtenerTodos();
 
-        // Agregar objetos al PDF
         foreach ($usuarios as $usuario) {
             $pdf->ChapterTitle($usuario->nombre);
             $pdf->ChapterBody($usuario->email . " " .  $usuario->rol . " " . $usuario->estado);
