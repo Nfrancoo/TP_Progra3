@@ -103,6 +103,7 @@ $app->group('/mesas', function (RouteCollectorProxy $group) {
 $app->group('/cobrar', function (RouteCollectorProxy $group) {
   $group->post('[/]', \MesaController::class.':cobrarMesa')->add(new ConfirmarRol('socio', 'mozo'));
   $group->post('/cerrar', \MesaController::class.':cerrarMesa')->add(new ConfirmarRol('socio'));
+  $group->post('/abrir', \MesaController::class.':abrirMesa')->add(new ConfirmarRol('socio'));
 })->add(\Logger::class.':ValidarSesion')->add(\LogMiddleware::class . ':LogTransaccion');
 
 

@@ -15,6 +15,7 @@ class ConfirmarRolEntrega
 
     public function __invoke(Request $request, RequestHandler $handler): Response
     {
+        $parametros = $request->getQueryParams();
         $header = $request->getHeaderLine('Authorization');
         if ($header && preg_match('/Bearer\s+(.*)$/i', $header, $matches)) {
             $token = $matches[1];
@@ -22,7 +23,7 @@ class ConfirmarRolEntrega
                 Autentificador::verificarToken($token);
                 $datos = Autentificador::ObtenerData($token);
                 $rolUsuario = $datos->rol;
-                $idPedido = $request->getQueryParams()['id'] ?? null;
+                $idPedido = $parametros['id'];
 
                 if (!$idPedido) {
                     throw new Exception('ID de pedido no proporcionado');
@@ -53,15 +54,15 @@ class ConfirmarRolEntrega
         }
     }
 
-    private function obtenerRolesPermitidosParaTipoPedido(?string $tipoPedido): array
+    private function obtenerRolesPermitidosParaTipoPedido(string $tipoPedido): array
     {
         $rolesParaTiposDePedido = [
             'cocina' => ['socio', 'cocinero'],
             'barra de choperas' => ['socio', 'cervecero'],
             'barra de bebidas' => ['socio', 'bartender'],
-            'postre' => ['socio', 'maestro pastelero']
+            'candybar' => ['socio', 'maestro pastelero']
         ];
 
-        return $rolesParaTiposDePedido[$tipoPedido] ?? [];
+        return $rolesParaTiposDePedido[$tipoPedido];
     }
 }

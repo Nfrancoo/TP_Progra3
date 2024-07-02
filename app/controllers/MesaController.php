@@ -97,6 +97,24 @@ class MesaController extends Mesa implements IApiUsable{
         return $response->withHeader('Content-Type', 'application/json');
     }
 
+    public static function abrirMesa($request, $response, $args) {
+        $parametros = $request->getParsedBody();
+        $codigoMesa = $parametros['codigo'];
+        $id = $parametros['id'];
+        if($codigoMesa){
+            $pedido = Pedido::obtenerPedidosPorMesaEId($codigoMesa, $id);
+            $mesa = Mesa::obtenerMesaPorCodigo($codigoMesa);
+            $payload = json_encode(array("mensaje" => "Mesa abierta"));
+            Mesa::AbrirMesaSocio($mesa->codigo);
+        }
+        else{
+            $payload = json_encode(array("mensaje" => "No se encontro la mesa"));
+        }
+        
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
 
     public static function DescargarCSV($request, $response, $args) {
         $carpeta_archivo = 'C:\xampp\htdocs\TP_Progra3\app\descargas-csv\Mesas/';

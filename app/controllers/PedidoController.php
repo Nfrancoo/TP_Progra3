@@ -225,29 +225,4 @@ class PedidoController extends Pedido implements IApiUsable{
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     }
-    // public function CalcularPromedioIngresos30Dias($request, $response, $args)
-    // {
-    //     $fechaActual = date("Y-m-d H:i:s");  
-    //     $fechaActualObj = new DateTime($fechaActual);
-    //     $fechaLimite = $fechaActualObj->modify('-30 days');
-    //     $pedidos = Pedido::obtenerTodosFinalizados("completado");
-    //     $acumulador = 0;
-    //     foreach ($pedidos as $pedido)
-    //     {
-    //         if (!empty($pedido->tiempoEntrega)) { // Asegúrate de que la propiedad no esté vacía
-    //             $fechaEntrega = new DateTime($pedido->fechaEntrega);
-    //             if($fechaEntrega >= $fechaLimite)
-    //             {
-    //                 $acumulador += $pedido->total;
-    //             }
-    //         }
-    //     }
-    //     $promedio = $acumulador / 30;
-
-    //     $payload = json_encode(array("mensaje" => "El importe promedio en los ultimos 30 dias fue de: " . $promedio));
-    //     $response->getBody()->write($payload);
-    //     return $response->withHeader('Content-Type', 'application/json');
-    // }
-
-
 }

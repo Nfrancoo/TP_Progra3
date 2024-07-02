@@ -204,10 +204,10 @@ class Pedido {
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
         $consulta = $objAccesoDatos->prepararConsulta("UPDATE pedidos SET estado = :estado, tiempoEntrega = :tiempoEntrega WHERE id = :id");
-        $fecha = new DateTime(date('Y-m-d'));
+        $fecha = new DateTime(date("Y-m-d H:i:s"));
         $consulta->bindValue(':id', $id, PDO::PARAM_INT);
         $consulta->bindValue(':estado', 'completado', PDO::PARAM_STR);
-        $consulta->bindValue(':tiempoEntrega', date_format($fecha, 'Y-m-d') , PDO::PARAM_STR);
+        $consulta->bindValue(':tiempoEntrega', date_format($fecha, "Y-m-d H:i:s") , PDO::PARAM_STR);
         $consulta->execute();
 
         return $consulta->fetchObject('Pedido');   

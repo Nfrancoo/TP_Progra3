@@ -93,6 +93,13 @@ class Mesa{
         $consulta->bindValue(':estado', 'cerrada', PDO::PARAM_STR);
         $consulta->execute();
     }
+    public static function AbrirMesaSocio($codigo){
+        $objAccesoDato = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDato->prepararConsulta("UPDATE mesas SET estado = :estado WHERE codigo = :codigo");
+        $consulta->bindValue(':codigo', $codigo, PDO::PARAM_STR);
+        $consulta->bindValue(':estado', 'en uso', PDO::PARAM_STR);
+        $consulta->execute();
+    }
 
     public static function Cobrar($codigo, $cobro){
         $objAccesoDato = AccesoDatos::obtenerInstancia();
