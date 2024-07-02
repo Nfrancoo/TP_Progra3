@@ -107,4 +107,17 @@ class Usuario
 
         $pdf->Output($path, 'F');
     }
+
+    public static function ObtenerSectores()
+    {
+        $sectores = [];
+        $usuarios = Usuario::obtenerTodos();
+
+        foreach ($usuarios as $usuario)
+        {
+            $sectores[$usuario->rol] = 0;
+        }
+
+        return $sectores;
+    }
 }

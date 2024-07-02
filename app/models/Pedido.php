@@ -11,6 +11,12 @@ class Pedido {
     public $tiempoEntrega;
     public $productos = [];
 
+    // Propiedades adicionales para los detalles del pedido
+    public $idPedido;
+    public $idProducto;
+    public $cantidad;
+    public $sector;
+
     public function crearPedido() {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
         $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO pedidos (codigo, idMesa, nombreCliente, estado, total, tiempoPreparacion, tiempoEntrega) VALUES (:codigo, :idMesa, :nombreCliente, :estado, :total, :tiempoPreparacion, :tiempoEntrega)");
@@ -115,7 +121,7 @@ class Pedido {
     public static function obtenerTodos()
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, tiempoPreparacion FROM pedidos");
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT * FROM pedidos");
         $consulta->execute();
         return $consulta->fetchAll(PDO::FETCH_ASSOC); 
     }

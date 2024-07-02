@@ -99,32 +99,6 @@ class PedidoController extends Pedido implements IApiUsable{
         
     }
 
-    // public static function TraerTodosPorSector($request, $response, $args) {
-    //     $cookie = $request->getCookieParams();
-    //     if(isset($cookie['JWT'])){
-    //         $token = $cookie['JWT'];
-    //         $datos = Autentificador::ObtenerData($token);
-    //         if($datos->rol == 'cocinero'){
-    //             $lista = Pedido::obtenerTodosPorSector('cocina');
-    //         }
-    //         if($datos->rol == 'bartender'){
-    //             $lista = Pedido::obtenerTodosPorSector('barra de bebidas');
-    //         }
-    //         if($datos->rol == 'cervecero'){
-    //             $lista = Pedido::obtenerTodosPorSector('barra de choperas');
-    //         }
-    //         if($datos->rol == 'maestro pastelero'){
-    //             $lista = Pedido::obtenerTodosPorSector('candybar');
-    //         }
-    //         $payload = json_encode(array("listaPedidos" => $lista));
-    //     }
-    //     else{
-    //         $payload = json_encode(array("listaPedidos" => 'No hay pedidos para tu sector'));
-    //     }
-    //     $response->getBody()->write($payload);
-    //     return $response->withHeader('Content-Type', 'application/json');
-    // }
-
     public static function generarCodigoPedido(){
         $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $longitud = 5;
@@ -175,7 +149,7 @@ class PedidoController extends Pedido implements IApiUsable{
                 }
             }                
             Pedido::LlevarPedido($idPedido);
-            $payload = json_encode(array("mensaje" => "¡Que lo disfrutes!"));
+            $payload = json_encode(array("mensaje" => "Que lo disfrutes"));
             $response->getBody()->write($payload);
             return $response->withHeader('Content-Type', 'application/json');
             

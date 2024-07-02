@@ -51,14 +51,24 @@ class ValidarMesas{
         throw new Exception('Campos Invalidos');
     }
 
-    public static function ValidarMesaCerrada($request, $handler){
+    public static function ValidarMesaCerradaPorId($request, $handler){
         $parametros = $request->getParsedBody();
         $mesa = Mesa::obtenerMesa($parametros['idMesa']);
         if($mesa->estado == "cerrada"){
-            return $handler->handle($request);
+            throw new Exception('la mesa esta cerrada');
         }
-        throw new Exception('la mesa no esta cerrada');
+        return $handler->handle($request);
     }
+
+    public static function ValidarMesaCerradaPorCodigo($request, $handler){
+        $parametros = $request->getParsedBody();
+        $mesa = Mesa::obtenerMesaPorCodigo($parametros['idMesa']);
+        if($mesa->estado == "cerrada"){
+            throw new Exception('la mesa esta cerrada');
+        }
+        return $handler->handle($request);
+    }
+        
 
     public static function ValidarCamposCobroEntreFechas($request, $handler){
         $parametros = $request->getQueryParams();
