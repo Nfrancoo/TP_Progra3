@@ -26,6 +26,19 @@ class ValidarMesas{
         throw new Exception('Mesa no existente');
     }
 
+    public static function ValidarMesaPorIdComentario($request, $handler){
+        $parametros = $request->getParsedBody();
+        if(isset($parametros['idMesa'])){
+            var_dump($parametros['idMesa']);
+            $mesa = Mesa::obtenerMesa($parametros['idMesa']);
+            if($mesa){
+                return $handler->handle($request);
+            }
+        }
+        throw new Exception('Mesa no existente');
+    }
+
+
     public static function ValidarCampos($request, $handler){
         $parametros = $request->getParsedBody();
         if(isset($parametros['codigo'])){
@@ -40,7 +53,7 @@ class ValidarMesas{
 
     public static function ValidarMesaCerrada($request, $handler){
         $parametros = $request->getParsedBody();
-        $mesa = Mesa::obtenerMesaPorCodigo($parametros['codigoMesa']);
+        $mesa = Mesa::obtenerMesa($parametros['idMesa']);
         if($mesa->estado == "cerrada"){
             return $handler->handle($request);
         }

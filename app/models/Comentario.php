@@ -2,31 +2,39 @@
 
 class Comentario{
     public $id;
-    public $codigoMesa;
-    public $puntaje;
+    public $idMesa;
+    public $idCliente;
+    public $fechaComentario;
+    public $puntajeMesa;
+    public $puntajeMozo;
+    public $puntajeComida;
+    public $puntajeGeneral;
+    public $idPedido;
     public $comentario;
     
     public function crearComentario() {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO comentarios (codigoMesa, puntaje, comentario) VALUES (:codigoMesa, :puntaje, :comentario)");
-
-        // Validar el puntaje antes de la inserción
-        if ($this->puntaje < 1 || $this->puntaje > 10) {
-            throw new Exception('Puntaje invalido. Debe estar entre 1 y 10.');
-        }
-
-        $consulta->bindValue(':codigoMesa', $this->codigoMesa, PDO::PARAM_STR);
-        $consulta->bindValue(':puntaje', $this->puntaje, PDO::PARAM_INT);
+        $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO comentarios (idMesa, idCliente, fechaComentario, puntajeMesa, puntajeMozo, puntajeComida, puntajeGeneral, idPedido, comentario) VALUES (:idMesa, :idCliente, :fechaComentario, :puntajeMesa, :puntajeMozo, :puntajeComida, :puntajeGeneral, :idPedido, :comentario)");
+    
+        $consulta->bindValue(':idMesa', $this->idMesa, PDO::PARAM_INT);
+        $consulta->bindValue(':idCliente', $this->idCliente, PDO::PARAM_INT);
+        $consulta->bindValue(':fechaComentario', $this->fechaComentario, PDO::PARAM_STR);
+        $consulta->bindValue(':puntajeMesa', $this->puntajeMesa, PDO::PARAM_INT);
+        $consulta->bindValue(':puntajeMozo', $this->puntajeMozo, PDO::PARAM_INT);
+        $consulta->bindValue(':puntajeComida', $this->puntajeComida, PDO::PARAM_INT);
+        $consulta->bindValue(':puntajeGeneral', $this->puntajeGeneral, PDO::PARAM_INT);
+        $consulta->bindValue(':idPedido', $this->idPedido, PDO::PARAM_INT);
         $consulta->bindValue(':comentario', $this->comentario, PDO::PARAM_STR);
-
+    
         $consulta->execute();
-
+    
         return $objAccesoDatos->obtenerUltimoId();
     }
+    
 
     public static function obtenerTodos(){
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, codigoMesa, puntaje, comentario FROM comentarios");
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, idMesa, idCliente, fechaComentario, puntajeMesa, puntajeMozo, puntajeComida, puntajeGeneral, idPedido, comentario FROM comentarios");
         $consulta->execute();
 
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'Comentario');
@@ -34,27 +42,32 @@ class Comentario{
 
     public static function obtenerComentario($id){
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, codigoMesa, puntaje, comentario FROM comentarios WHERE id = :id");
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, idMesa, idCliente, fechaComentario, puntajeMesa, puntajeMozo, puntajeComida, puntajeGeneral, idPedido, comentario FROM comentarios WHERE id = :id");
         $consulta->bindValue(':id', $id, PDO::PARAM_INT);
         $consulta->execute();
 
         return $consulta->fetchObject('Comentario');
     }
 
-    public static function obtenerComentarioCodigoMesa($codigoMesa){
+    public static function obtenerComentarioCodigoMesa($idMesa){
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, codigoMesa, puntaje, comentario FROM comentarios WHERE codigoMesa = :codigoMesa");
-        $consulta->bindValue(':codigoMesa', $codigoMesa, PDO::PARAM_STR);
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, idMesa, idCliente, fechaComentario, puntajeMesa, puntajeMozo, puntajeComida, puntajeGeneral, idPedido, comentario FROM comentarios WHERE idMesa = :idMesa");
+        $consulta->bindValue(':idMesa', $idMesa, PDO::PARAM_STR);
         $consulta->execute();
 
         return $consulta->fetchObject('Comentario');
     }
-    public static function modificarComentario($comentario){
-        $objAccesoDato = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDato->prepararConsulta("UPDATE comentarios SET comentario = :comentario, puntaje = :puntaje WHERE id = :id");
+    public static function modificarComentario($comentario) {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("UPDATE comentarios SET comentario = :comentario, puntajeMesa = :puntajeMesa, puntajeMozo = :puntajeMozo, puntajeComida = :puntajeComida, puntajeGeneral = :puntajeGeneral WHERE id = :id");
+        
         $consulta->bindValue(':id', $comentario->id, PDO::PARAM_INT);
-        $consulta->bindValue(':puntaje', $comentario->puntaje, PDO::PARAM_INT);
+        $consulta->bindValue(':puntajeMesa', $comentario->puntajeMesa, PDO::PARAM_INT);
+        $consulta->bindValue(':puntajeMozo', $comentario->puntajeMozo, PDO::PARAM_INT);
+        $consulta->bindValue(':puntajeComida', $comentario->puntajeComida, PDO::PARAM_INT);
+        $consulta->bindValue(':puntajeGeneral', $comentario->puntajeGeneral, PDO::PARAM_INT);
         $consulta->bindValue(':comentario', $comentario->comentario, PDO::PARAM_STR);
+        
         $consulta->execute();
     }
 
