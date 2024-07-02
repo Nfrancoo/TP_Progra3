@@ -99,39 +99,40 @@ class ComentarioController extends Comentario implements IApiUsable{
 
     public function BorrarUno($request, $response, $args){
         $parametros = $request->getParsedBody();
-        $comentario = Comentario::obtenerComentario($parametros['id']);
-        Comentario::borrarComentario($comentario);
+        Comentario::borrarComentario($parametros['id']);
         $payload = json_encode(array("mensaje" => "Comentario borrado con exito"));
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     }
 
-    public function ModificarUno($request, $response, $args) {
+
+    public function ModificarUno($request, $response, $args){
         $parametros = $request->getParsedBody();
-    
+        
         $comentario = Comentario::obtenerComentario($parametros['id']);
-    
-        if (isset($parametros['puntajeMesa'])) {
+
+        
+
+        if(isset($parametros['puntajeMesa'])){
             $comentario->puntajeMesa = $parametros['puntajeMesa'];
         }
-        if (isset($parametros['puntajeMozo'])) {
+        if(isset($parametros['puntajeMozo'])){
             $comentario->puntajeMozo = $parametros['puntajeMozo'];
         }
-        if (isset($parametros['puntajeComida'])) {
+        if(isset($parametros['puntajeComida'])){
             $comentario->puntajeComida = $parametros['puntajeComida'];
         }
-        if (isset($parametros['puntajeMesa']) || isset($parametros['puntajeMozo']) || isset($parametros['puntajeComida'])) {
-            $comentario->puntajeGeneral = ($comentario->puntajeMesa + $comentario->puntajeMozo + $comentario->puntajeComida) / 3;
+        if(isset($parametros['puntajeGeneral'])){
+            $comentario->puntajeGeneral = ($parametros['puntajeMesa'] + $parametros['puntajeComida'] + $parametros['puntajeMozo']) / 3;
         }
-        if (isset($parametros['comentario'])) {
+        if(isset($parametros['comentario'])){
             $comentario->comentario = $parametros['comentario'];
         }
+        
     
         Comentario::modificarComentario($comentario);
-    
         $payload = json_encode(array("mensaje" => "Comentario modificado con exito"));
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     }
-
 }

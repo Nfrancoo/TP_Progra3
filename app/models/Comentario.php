@@ -71,10 +71,10 @@ class Comentario{
         $consulta->execute();
     }
 
-    public static function borrarComentario($comentario){
+    public static function borrarComentario($id){
         $objAccesoDato = AccesoDatos::obtenerInstancia();
         $consulta = $objAccesoDato->prepararConsulta("DELETE FROM comentarios WHERE id = :id");
-        $consulta->bindValue(':id', $comentario->id, PDO::PARAM_INT);
+        $consulta->bindValue(':id', $id, PDO::PARAM_INT);
         $consulta->execute();
     }
     
