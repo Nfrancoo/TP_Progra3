@@ -225,4 +225,18 @@ class PedidoController extends Pedido implements IApiUsable{
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     }
+
+
+    public function MesaMasUsada($request, $response, $args)
+    {
+        $mesaMasUsada = Pedido::obtenerMesaMasUsada();
+        if ($mesaMasUsada) {
+            $payload = json_encode(array("mesa_mas_usada" => $mesaMasUsada));
+        } else {
+            $payload = json_encode(array("mensaje" => "No hay datos de mesas disponibles"));
+        }
+
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 }

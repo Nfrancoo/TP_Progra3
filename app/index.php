@@ -77,7 +77,7 @@ $app->group('/productos', function (RouteCollectorProxy $group) {
 $app->group('/pedidos', function (RouteCollectorProxy $group) {
   $group->get('[/]', \PedidoController::class.':TraerTodos')->add(new ConfirmarRol('socio'));
   $group->get('/{id}', \PedidoController::class.':TraerUno')->add(new ConfirmarRol('socio'));
-  $group->post('[/]', \PedidoController::class.':CargarUno')->add(new ConfirmarRol('socio'))->add(\ValidarMesas::class.':ValidarMesaCerradaPorCodigo');
+  $group->post('[/]', \PedidoController::class.':CargarUno')->add(new ConfirmarRol('socio', 'mozo'))->add(\ValidarMesas::class.':ValidarMesaCerradaPorCodigo');
   $group->put('[/]', \PedidoController::class.':ModificarUno')->add(\ValidarPedidos::class.':ValidarEstado')->add(\ValidarMesas::class.':ValidarMesaCerradaPorCodigo')->add(\ValidarPedidos::class.':ValidarMesaExistente')->add(new ConfirmarRol('socio', 'mozo'));
   $group->delete('[/]', \PedidoController::class.':BorrarUno')->add(new ConfirmarRol('socio', 'mozo'));
   $group->get('/listar/pendientes', \PedidoController::class . ':ListarPendientesDetallePedido')->add(new ValidarRolesListar('cocinero', 'cervecero', 'bartender', 'maestro pastelero', 'socio'));
@@ -92,6 +92,7 @@ $app->group('/hacer', function (RouteCollectorProxy $group) {
 
 
 $app->group('/mesas', function (RouteCollectorProxy $group) {
+  $group->get('/mesaMasUsada', \PedidoController::class . ':MesaMasUsada');
   $group->get('[/]', \MesaController::class.':TraerTodos')->add(new ConfirmarRol('socio', 'mozo'));
   $group->get('/{id}', \MesaController::class.':TraerUno')->add(new ConfirmarRol('socio', 'mozo'));
   $group->post('[/]', \MesaController::class.':CargarUno')->add(new ConfirmarRol('socio', 'mozo'));
@@ -99,6 +100,7 @@ $app->group('/mesas', function (RouteCollectorProxy $group) {
   $group->delete('[/]', \MesaController::class.':BorrarUno')->add(\ValidarMesas::class.':ValidarMesa')->add(new ConfirmarRol('socio', 'mozo'));
   $group->get('/mostrar/todos-estado', \MesaController::class . ':SocioTraeEstadoMesa');
 })->add(\Logger::class.':ValidarSesion')->add(\LogMiddleware::class . ':LogTransaccion');
+
 
 $app->group('/cobrar', function (RouteCollectorProxy $group) {
   $group->post('[/]', \MesaController::class.':cobrarMesa')->add(new ConfirmarRol('socio', 'mozo'));

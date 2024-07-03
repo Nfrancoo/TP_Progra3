@@ -212,4 +212,13 @@ class Pedido {
 
         return $consulta->fetchObject('Pedido');   
     }
+
+
+    public static function obtenerMesaMasUsada()
+    {
+        $accesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $accesoDatos->prepararConsulta("SELECT idMesa, COUNT(*) as cantidad FROM pedidos GROUP BY idMesa ORDER BY cantidad DESC LIMIT 1");
+        $consulta->execute();
+        return $consulta->fetch(PDO::FETCH_ASSOC);
+    }
 }
